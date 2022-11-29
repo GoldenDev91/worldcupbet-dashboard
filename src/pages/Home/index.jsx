@@ -662,198 +662,200 @@ const Home = ({ setNotification }) => {
                   {Object.keys(accountlockinfo).length === 0 ? (
                     ""
                   ) : (
-                    <Box
-                      mt={"20px"}
-                      width={"100%"}
-                      overflow={"hidden"}
-                      display={"flex"}
-                      alignItems={"center"}
-                    >
-                      <Button
-                        type={"secondary"}
-                        width={betIndex === matchIndex ? "120px" : "100%"}
-                        height={"50px"}
-                        disabled={pending || match.time < nowInSeconds}
-                        position={"relative"}
-                        transform={"width 0.5s ease-out"}
-                        fontSize={24 - mw1150 * 8 + "px"}
-                        style={{
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                        }}
-                        onClick={() => {
-                          setChoice(0);
-                          setBetIndex(
-                            betIndex !== matchIndex ? matchIndex : -1
-                          );
-                        }}
+                    <>
+                      <Box
+                        mt={"20px"}
+                        width={"100%"}
+                        overflow={"hidden"}
+                        display={"flex"}
+                        alignItems={"center"}
                       >
-                        {betIndex === matchIndex
-                          ? "CANCEL"
-                          : accountlockinfo.betInfos[matchIndex].betAmount > 0
-                          ? accountlockinfo.betInfos[matchIndex].choice === 3
-                            ? "BET TO DRAW"
-                            : "BET TO " +
-                              (accountlockinfo.betInfos[matchIndex].choice === 1
-                                ? match.team1
-                                : match.team2
-                              ).toUpperCase()
-                          : match.time > nowInSeconds
-                          ? "PLACE BET"
-                          : "FINISHED"}
-                      </Button>
-                      <ColumnLayout width={"calc(100% - 120px)"} ml={"20px"}>
-                        <RowLayout>
-                          <Flag
-                            style={{
-                              backgroundImage: `url('${
-                                teamList[match.team1]?.flag
-                              }')`,
-                              animation:
-                                choice === 1 ? "pulse 0.5s infinite" : "",
-                              cursor: "pointer",
-                              transition: "all 0.5s ease-out",
-                            }}
-                            width={80 - mw1150 * 40 + "px"}
-                            height={48 - mw1150 * 24 + "px"}
-                            boxShadow={
-                              choice === 1
-                                ? "0px 1px 3px white, 0px -1px 3px black"
-                                : ""
-                            }
-                            onClick={() => {
-                              setChoice(1);
-                            }}
-                          ></Flag>
-                          <Flag
-                            style={{
-                              userSelect: "none",
-                              animation:
-                                choice === 3 ? "pulse 0.5s infinite" : "",
-                              cursor: "pointer",
-                              transition: "all 0.5s ease-out",
-                            }}
-                            backgroundColor={"#CCC"}
-                            width={80 - mw1150 * 40 + "px"}
-                            height={48 - mw1150 * 24 + "px"}
-                            display={"flex"}
-                            justifyContent={"center"}
-                            boxShadow={
-                              choice === 3
-                                ? "0px 1px 3px white, 0px -1px 3px black"
-                                : ""
-                            }
-                            onClick={() => {
-                              setChoice(3);
-                            }}
-                            fontSize={28 - mw1150 * 14 + "px"}
-                            color={"#333"}
-                          >
-                            Draw
-                          </Flag>
-                          <Flag
-                            style={{
-                              backgroundImage: `url('${
-                                teamList[match.team2]?.flag
-                              }')`,
-                              animation:
-                                choice === 2 ? "pulse 0.5s infinite" : "",
-                              cursor: "pointer",
-                              transition: "all 0.5s ease-out",
-                            }}
-                            width={80 - mw1150 * 40 + "px"}
-                            height={48 - mw1150 * 24 + "px"}
-                            boxShadow={
-                              choice === 2
-                                ? "0px 1px 3px white, 0px -1px 3px black"
-                                : ""
-                            }
-                            onClick={() => {
-                              setChoice(2);
-                            }}
-                          ></Flag>
-                        </RowLayout>
-                        <InputPanel>
-                          <InputField>
-                            <input
-                              type={"text"}
-                              placeholder={"0.00"}
-                              value={depositAmount}
-                              disabled={betIndex !== matchIndex}
-                              onChange={(e) => {
-                                setMaxPressed(false);
-                                setDepositAmount(e.target.value);
+                        <Button
+                          type={"secondary"}
+                          width={betIndex === matchIndex ? "120px" : "100%"}
+                          height={"50px"}
+                          disabled={pending || match.time < nowInSeconds}
+                          position={"relative"}
+                          transform={"width 0.5s ease-out"}
+                          fontSize={24 - mw1150 * 8 + "px"}
+                          style={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                          }}
+                          onClick={() => {
+                            setChoice(0);
+                            setBetIndex(
+                              betIndex !== matchIndex ? matchIndex : -1
+                            );
+                          }}
+                        >
+                          {betIndex === matchIndex
+                            ? "CANCEL"
+                            : accountlockinfo.betInfos[matchIndex].betAmount > 0
+                            ? accountlockinfo.betInfos[matchIndex].choice === 3
+                              ? "BET TO DRAW"
+                              : "BET TO " +
+                                (accountlockinfo.betInfos[matchIndex].choice ===
+                                1
+                                  ? match.team1
+                                  : match.team2
+                                ).toUpperCase()
+                            : match.time > nowInSeconds
+                            ? "PLACE BET"
+                            : "FINISHED"}
+                        </Button>
+                        <ColumnLayout width={"calc(100% - 120px)"} ml={"20px"}>
+                          <RowLayout>
+                            <Flag
+                              style={{
+                                backgroundImage: `url('${
+                                  teamList[match.team1]?.flag
+                                }')`,
+                                animation:
+                                  choice === 1 ? "pulse 0.5s infinite" : "",
+                                cursor: "pointer",
+                                transition: "all 0.5s ease-out",
                               }}
-                            />
-                            <Button
-                              type={"max"}
-                              width={"64px"}
-                              height={"46px"}
-                              disabled={betIndex !== matchIndex}
-                              onClick={() => {
-                                setDepositAmount(
-                                  (balance / Math.pow(10, 18)).toFixed(6)
-                                );
-                                setMaxPressed(true);
-                              }}
-                            >
-                              Max
-                            </Button>
-                          </InputField>
-                          {lockallow ? (
-                            <Button
-                              type={"primary"}
-                              width={sm ? "100%" : "143px"}
-                              height={"50px"}
-                              disabled={
-                                pending ||
-                                !Number(balance) ||
-                                !Number(depositAmount)
+                              width={80 - mw1150 * 40 + "px"}
+                              height={48 - mw1150 * 24 + "px"}
+                              boxShadow={
+                                choice === 1
+                                  ? "0px 1px 3px white, 0px -1px 3px black"
+                                  : ""
                               }
-                              onClick={() => onDeposit()}
-                            >
-                              BET
-                            </Button>
-                          ) : (
-                            <Button
-                              type={"primary"}
-                              width={sm ? "100%" : "100px"}
-                              height={"50px"}
-                              disabled={pending}
                               onClick={() => {
-                                !account ? onConnect() : onApproveContract();
+                                setChoice(1);
                               }}
+                            ></Flag>
+                            <Flag
+                              style={{
+                                userSelect: "none",
+                                animation:
+                                  choice === 3 ? "pulse 0.5s infinite" : "",
+                                cursor: "pointer",
+                                transition: "all 0.5s ease-out",
+                              }}
+                              backgroundColor={"#CCC"}
+                              width={80 - mw1150 * 40 + "px"}
+                              height={48 - mw1150 * 24 + "px"}
+                              display={"flex"}
+                              justifyContent={"center"}
+                              boxShadow={
+                                choice === 3
+                                  ? "0px 1px 3px white, 0px -1px 3px black"
+                                  : ""
+                              }
+                              onClick={() => {
+                                setChoice(3);
+                              }}
+                              fontSize={28 - mw1150 * 14 + "px"}
+                              color={"#333"}
                             >
-                              {!account ? "Connect" : "Approve"}
-                            </Button>
-                          )}
-                        </InputPanel>
-                      </ColumnLayout>
-                    </Box>
-                  )}
-                  {Object.keys(accountlockinfo).length > 0 &&
-                  accountlockinfo.betInfos[matchIndex].betAmount > 0 ? (
-                    <Button
-                      type={"secondary"}
-                      width={"100%"}
-                      height={"50px"}
-                      fontSize={24 - mw1150 * 8 + "px"}
-                      disabled={
-                        pending ||
-                        lockinfo.matchInfos[matchIndex].result !==
-                          accountlockinfo.betInfos[matchIndex].choice
-                      }
-                      onClick={() => onClaim(matchIndex)}
-                    >
-                      {lockinfo.matchInfos[matchIndex].result > 0
-                        ? lockinfo.matchInfos[matchIndex].result ===
-                          accountlockinfo.betInfos[matchIndex].choice
-                          ? "CLAIM AWARD"
-                          : "YOU FAILED TO WIN"
-                        : "RESULT NOT READY"}
-                    </Button>
-                  ) : (
-                    ""
+                              Draw
+                            </Flag>
+                            <Flag
+                              style={{
+                                backgroundImage: `url('${
+                                  teamList[match.team2]?.flag
+                                }')`,
+                                animation:
+                                  choice === 2 ? "pulse 0.5s infinite" : "",
+                                cursor: "pointer",
+                                transition: "all 0.5s ease-out",
+                              }}
+                              width={80 - mw1150 * 40 + "px"}
+                              height={48 - mw1150 * 24 + "px"}
+                              boxShadow={
+                                choice === 2
+                                  ? "0px 1px 3px white, 0px -1px 3px black"
+                                  : ""
+                              }
+                              onClick={() => {
+                                setChoice(2);
+                              }}
+                            ></Flag>
+                          </RowLayout>
+                          <InputPanel>
+                            <InputField>
+                              <input
+                                type={"text"}
+                                placeholder={"0.00"}
+                                value={depositAmount}
+                                disabled={betIndex !== matchIndex}
+                                onChange={(e) => {
+                                  setMaxPressed(false);
+                                  setDepositAmount(e.target.value);
+                                }}
+                              />
+                              <Button
+                                type={"max"}
+                                width={"64px"}
+                                height={"46px"}
+                                disabled={betIndex !== matchIndex}
+                                onClick={() => {
+                                  setDepositAmount(
+                                    (balance / Math.pow(10, 18)).toFixed(6)
+                                  );
+                                  setMaxPressed(true);
+                                }}
+                              >
+                                Max
+                              </Button>
+                            </InputField>
+                            {lockallow ? (
+                              <Button
+                                type={"primary"}
+                                width={sm ? "100%" : "143px"}
+                                height={"50px"}
+                                disabled={
+                                  pending ||
+                                  !Number(balance) ||
+                                  !Number(depositAmount)
+                                }
+                                onClick={() => onDeposit()}
+                              >
+                                BET
+                              </Button>
+                            ) : (
+                              <Button
+                                type={"primary"}
+                                width={sm ? "100%" : "100px"}
+                                height={"50px"}
+                                disabled={pending}
+                                onClick={() => {
+                                  !account ? onConnect() : onApproveContract();
+                                }}
+                              >
+                                {!account ? "Connect" : "Approve"}
+                              </Button>
+                            )}
+                          </InputPanel>
+                        </ColumnLayout>
+                      </Box>
+                      {accountlockinfo.betInfos[matchIndex].betAmount > 0 ? (
+                        <Button
+                          type={"secondary"}
+                          width={"100%"}
+                          height={"50px"}
+                          fontSize={24 - mw1150 * 8 + "px"}
+                          disabled={
+                            pending ||
+                            lockinfo.matchInfos[matchIndex].result !==
+                              accountlockinfo.betInfos[matchIndex].choice
+                          }
+                          onClick={() => onClaim(matchIndex)}
+                        >
+                          {lockinfo.matchInfos[matchIndex].result > 0
+                            ? lockinfo.matchInfos[matchIndex].result ===
+                              accountlockinfo.betInfos[matchIndex].choice
+                              ? "CLAIM AWARD"
+                              : "YOU FAILED TO WIN"
+                            : "RESULT NOT READY"}
+                        </Button>
+                      ) : (
+                        ""
+                      )}
+                    </>
                   )}
                 </Panel>
               </RowLayout>
