@@ -831,7 +831,8 @@ const Home = ({ setNotification }) => {
                       </ColumnLayout>
                     </Box>
                   )}
-                  {accountlockinfo.betInfos[matchIndex].betAmount > 0 ? (
+                  {Object.keys(accountlockinfo).length > 0 &&
+                  accountlockinfo.betInfos[matchIndex].betAmount > 0 ? (
                     <Button
                       type={"secondary"}
                       width={"100%"}
