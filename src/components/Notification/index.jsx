@@ -10,7 +10,7 @@ const Notification = ({ data }) => {
     if (!data) return;
     switch (data.type) {
       case "info":
-        NotificationManager.info("Info message");
+        NotificationManager.info(data.detail, data.title);
         break;
       case "success":
         NotificationManager.success(data.detail, data.title);

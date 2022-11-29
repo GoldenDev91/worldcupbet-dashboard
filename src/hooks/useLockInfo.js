@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 
 import { SSL_ADDR, SSL_LOCK } from "../abis/address";
 import TokenABI from "../abis/GroveToken.json";
@@ -26,7 +26,7 @@ export default function useLockInfo() {
   return React.useContext(LockInfoContext);
 }
 let timerid = null,
-  historyTimer = null,
+  // historyTimer = null,
   lockid = null;
 export function LockInfoProvider({ children }) {
   const account = useAddress();
@@ -42,70 +42,116 @@ export function LockInfoProvider({ children }) {
       let calls = [
         {
           address: SSL_LOCK[chainID],
-          name: "totalStaked",
+          name: "matchCount",
           params: [],
         },
         {
           address: SSL_LOCK[chainID],
-          name: "interest",
+          name: "totalBetAmount",
           params: [],
         },
         {
           address: SSL_LOCK[chainID],
-          name: "fee",
+          name: "totalAwardAmount",
           params: [],
         },
       ];
-
       const result = await multicall(LockABI, calls, chainID);
-      console.log(result);
+      console.log("globalResult", result);
+      calls = [];
+      for (let i = 0; i < result[0][0]; i++) {
+        calls.push({
+          address: SSL_LOCK[chainID],
+          name: "matchInfos",
+          params: [i],
+        });
+        calls.push({
+          address: SSL_LOCK[chainID],
+          name: "getChoiceCounts",
+          params: [i],
+        });
+      }
+      const result1 = await multicall(LockABI, calls, chainID);
+      console.log(result1);
+      let matchInfos = [];
+      for (let i = 0; i < result[0][0]; i++) {
+        const info = {
+          team1: result1[i * 2][0],
+          team2: result1[i * 2][1],
+          time: result1[i * 2][2],
+          level: result1[i * 2][3],
+          result: result1[i * 2][4],
+          betAmount: result1[i * 2][5],
+          awardAmount: result1[i * 2][6],
+          team1AwardRate: result1[i * 2][7],
+          team2AwardRate: result1[i * 2][8],
+          drawAwardRate: result1[i * 2][9],
+        };
+        matchInfos.push({
+          ...info,
+          choiceCounts: [
+            result1[i * 2 + 1][0],
+            result1[i * 2 + 1][1],
+            result1[i * 2 + 1][2],
+            result1[i * 2 + 1][3],
+          ],
+        });
+      }
+      console.log(matchInfos);
       const temp = {
-        totalStaked: result[0],
-        interest: result[1],
-        fee: result[2],
+        matchCount: result[0][0],
+        totalBetAmount: result[1][0],
+        totalAwardAmount: result[2][0],
+        matchInfos: matchInfos,
       };
+      console.log("temp :>> ", temp);
+
       setLockInfo(temp);
     } catch (error) {
       console.log(error);
     }
   }
   async function fetchAccountLockData() {
+    if (Object.keys(lockinfo).length === 0) return;
     try {
-      let calls = [
-        {
+      let calls = [];
+      for (let i = 0; i < lockinfo.matchCount; i++) {
+        calls.push({
           address: SSL_LOCK[chainID],
-          name: "balances",
-          params: [account],
-        },
-        {
+          name: "getChoice",
+          params: [i, account],
+        });
+        calls.push({
           address: SSL_LOCK[chainID],
-          name: "emissions",
-          params: [account],
-        },
-        {
+          name: "getBetAmount",
+          params: [i, account],
+        });
+        calls.push({
           address: SSL_LOCK[chainID],
-          name: "maxIds",
-          params: [account],
-        },
-        {
-          address: SSL_LOCK[chainID],
-          name: "depositDates",
-          params: [account],
-        },
-        // {
-        //   address: SSL_LOCK[chainID],
-        //   name: "stakeInfos",
-        //   params: [account],
-        // },
-      ];
+          name: "getAwardAmount",
+          params: [i, account],
+        });
+      }
 
       const result = await multicall(LockABI, calls, chainID);
       console.log(result);
+      let betInfos = [];
+      let totalBet = BigNumber.from("0");
+      let totalAward = BigNumber.from("0");
+      for (let i = 0; i < lockinfo.matchCount; i++) {
+        const info = {
+          choice: result[i * 3][0],
+          betAmount: result[i * 3 + 1][0],
+          awardAmount: result[i * 3 + 2][0],
+        };
+        totalBet += info.betAmount;
+        totalAward += info.awardAmount;
+        betInfos.push(info);
+      }
       const temp = {
-        balance: result[0][0],
-        emission: result[1][0],
-        maxId: result[2][0],
-        depositDate: result[3][0],
+        totalBet: totalBet,
+        totalAward: totalAward,
+        betInfos: betInfos,
       };
       console.log("acountlockinfo", temp);
       setAccountLockInfo(temp);
@@ -177,18 +223,18 @@ export function LockInfoProvider({ children }) {
       fetchAllowance();
     }, 20000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, chainID]);
+  }, [account, chainID, lockinfo.matchCount]);
 
-  useEffect(() => {
-    if (chainID !== WORKING_NETWORK_ID) return;
-    if (!account) return;
-    fetchAccountHistory();
-    if (historyTimer) clearInterval(historyTimer);
-    historyTimer = setInterval(() => {
-      fetchAccountHistory();
-    }, 20000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, accountlockinfo.maxId]);
+  // useEffect(() => {
+  //   if (chainID !== WORKING_NETWORK_ID) return;
+  //   if (!account) return;
+  //   fetchAccountHistory();
+  //   if (historyTimer) clearInterval(historyTimer);
+  //   historyTimer = setInterval(() => {
+  //     fetchAccountHistory();
+  //   }, 20000);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [account, accountlockinfo.maxId]);
 
   return (
     <LockInfoContext.Provider

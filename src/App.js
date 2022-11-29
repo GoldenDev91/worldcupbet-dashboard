@@ -40,11 +40,11 @@ function App() {
   return (
     <BrowserRouter>
       <StyledContainer>
-        {/* <TopBar
+        <TopBar
           setNotification={setNotification}
           curpage={curpage}
           setCurPage={setCurPage}
-        /> */}
+        />
         <Routes>
           <Route
             exact

@@ -9,15 +9,15 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "matchIndex",
+        "type": "uint256"
       },
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
       },
       {
         "indexed": false,
@@ -28,49 +28,42 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "balance",
+        "name": "timestamp",
         "type": "uint256"
       }
     ],
-    "name": "Deposited",
+    "name": "Bet",
     "type": "event"
   },
   {
     "anonymous": false,
     "inputs": [
       {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "matchIndex",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
-        "name": "value",
+        "name": "amount",
         "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      }
-    ],
-    "name": "FeeSet",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
         "internalType": "uint256",
-        "name": "value",
+        "name": "timestamp",
         "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
       }
     ],
-    "name": "InterestSet",
+    "name": "Claim",
     "type": "event"
   },
   {
@@ -93,51 +86,44 @@
     "type": "event"
   },
   {
-    "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
+        "internalType": "string",
+        "name": "_team1",
+        "type": "string"
       },
       {
-        "indexed": true,
+        "internalType": "string",
+        "name": "_team2",
+        "type": "string"
+      },
+      {
         "internalType": "uint256",
-        "name": "id",
+        "name": "_time",
         "type": "uint256"
       },
       {
-        "indexed": false,
+        "internalType": "string",
+        "name": "_level",
+        "type": "string"
+      },
+      {
         "internalType": "uint256",
-        "name": "amount",
+        "name": "_team1AwardRate",
         "type": "uint256"
       },
       {
-        "indexed": false,
         "internalType": "uint256",
-        "name": "fee",
+        "name": "_team2AwardRate",
         "type": "uint256"
       },
       {
-        "indexed": false,
         "internalType": "uint256",
-        "name": "balance",
+        "name": "_drawAwardRate",
         "type": "uint256"
       }
     ],
-    "name": "Withdrawn",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "balances",
+    "name": "addMatch",
     "outputs": [
       {
         "internalType": "uint256",
@@ -145,32 +131,48 @@
         "type": "uint256"
       }
     ],
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_matchIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_choice",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "_amount",
         "type": "uint256"
       }
     ],
-    "name": "calculateFee",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
+    "name": "bet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_matchIndex",
+        "type": "uint256"
+      }
+    ],
     "name": "claim",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -178,24 +180,16 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_amount",
+        "name": "_matchIndex",
         "type": "uint256"
-      }
-    ],
-    "name": "deposit",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
+      },
       {
         "internalType": "address",
-        "name": "",
+        "name": "_beter",
         "type": "address"
       }
     ],
-    "name": "depositDates",
+    "name": "getAwardAmount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -209,12 +203,17 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_matchIndex",
+        "type": "uint256"
+      },
+      {
         "internalType": "address",
-        "name": "",
+        "name": "_beter",
         "type": "address"
       }
     ],
-    "name": "emissions",
+    "name": "getBetAmount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -226,9 +225,54 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "fee",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_matchIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_beter",
+        "type": "address"
+      }
+    ],
+    "name": "getChoice",
     "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_matchIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "getChoiceCounts",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "",
@@ -249,16 +293,6 @@
         "internalType": "address",
         "name": "_tokenAddress",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_interest",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_fee",
-        "type": "uint256"
       }
     ],
     "name": "initialize",
@@ -268,7 +302,7 @@
   },
   {
     "inputs": [],
-    "name": "interest",
+    "name": "matchCount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -282,16 +316,61 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "maxIds",
-    "outputs": [
-      {
         "internalType": "uint256",
         "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "matchInfos",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "team1",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "team2",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "level",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "result",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "betAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "awardAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "team1AwardRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "team2AwardRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "drawAwardRate",
         "type": "uint256"
       }
     ],
@@ -322,60 +401,18 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_newFee",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_result",
         "type": "uint256"
       }
     ],
-    "name": "setFee",
+    "name": "setMatchResult",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_newInterest",
-        "type": "uint256"
-      }
-    ],
-    "name": "setInterest",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "stakeInfos",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "timestamp",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "isDeposit",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -393,7 +430,20 @@
   },
   {
     "inputs": [],
-    "name": "totalStaked",
+    "name": "totalAwardAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalBetAmount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -421,11 +471,46 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_amount",
+        "name": "_index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_team1",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_team2",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_level",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_team1AwardRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_team2AwardRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_drawAwardRate",
         "type": "uint256"
       }
     ],
-    "name": "withdraw",
+    "name": "updateMatch",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

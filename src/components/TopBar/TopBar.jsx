@@ -3,16 +3,42 @@ import { Box } from "@mui/material";
 import ConnectMenu from "./ConnectMenu.jsx";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 function TopBar({ setNotification }) {
-  const menus = ["Dashboard", "Staking", "History"];
+  const menus = [
+    /*"Dashboard", "Staking", "History"*/
+  ];
+
+  const sm = useMediaQuery("(max-width : 500px)");
+  const xs = useMediaQuery("(max-width : 450px)");
+  const mw650 = useMediaQuery("(max-width : 650px)");
+  const mw950 = useMediaQuery("(max-width : 950px)");
+  const mw1150 = useMediaQuery("(max-width : 1150px)");
 
   return (
     <>
       <StyledContainer>
         <Box>
-          <LogoSVG>
-          </LogoSVG>
+          <Box display={"flex"} flex-direction={"row"}>
+            <LogoSVG
+              style={{
+                filter: "drop-shadow(0px 0px 1px rgba(255, 255, 255, 1))",
+              }}
+            ></LogoSVG>
+            <Box
+              ml={mw950 ? "0px" : mw1150 ? "10px" : "20px"}
+              fontSize={mw650 ? "20px" : mw950 ? "24px" : "36px"}
+              fontWeight="800"
+              textAlign={"center"}
+              width={mw950 ? "min-content" : "fit-content"}
+              whiteSpace={"nowrap"}
+              display={"flex"}
+              alignItems={"center"}
+            >
+              WORLD CUP BET
+            </Box>
+          </Box>
           <Menus>
             {menus.map((data, i) => {
               return (
@@ -21,8 +47,9 @@ function TopBar({ setNotification }) {
                 </Link>
               );
             })}
-            <ConnectMenu setNotification={setNotification} />
+            {/* <ConnectMenu setNotification={setNotification} /> */}
           </Menus>
+          <ConnectMenu setNotification={setNotification} />
         </Box>
       </StyledContainer>
     </>
@@ -85,9 +112,10 @@ const StyledContainer = styled(Box)`
   width: 100%;
   position: fixed;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  background: #262626;
+  background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 5px rgb(0 0 0 / 11%);
   z-index: 1000;
+  backdrop-filter: blur(8px);
 `;
 
 export default TopBar;
