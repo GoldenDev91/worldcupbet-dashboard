@@ -479,7 +479,17 @@ const Home = ({ setNotification }) => {
                         </Box>
                       </RowLayout>
                       <RowLayout>
-                        <Box color={"#AAA"}>Total pool:</Box>
+                        <Box color={"#AAA"}>Total bet:</Box>
+                        <Box ml={"10px"} width={"140px"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"100px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                      </RowLayout>
+                      <RowLayout>
+                        <Box color={"#AAA"}>Total award:</Box>
                         <Box ml={"10px"} width={"140px"}>
                           <Skeleton
                             variant={"text"}
@@ -681,12 +691,21 @@ const Home = ({ setNotification }) => {
                         </Box>
                       </RowLayout>
                       <RowLayout>
-                        <Box color={"#AAA"}>Total pool:</Box>
+                        <Box color={"#AAA"}>Total bet:</Box>
                         <Box ml={"10px"} width={"140px"}>
                           {(
                             lockinfo.matchInfos[matchIndex].betAmount /
                             Math.pow(10, 18)
-                          ).toFixed(2)}
+                          ).toFixed(6)}
+                        </Box>
+                      </RowLayout>
+                      <RowLayout>
+                        <Box color={"#AAA"}>Total award:</Box>
+                        <Box ml={"10px"} width={"140px"}>
+                          {(
+                            lockinfo.matchInfos[matchIndex].awardAmount /
+                            Math.pow(10, 18)
+                          ).toFixed(6)}
                         </Box>
                       </RowLayout>
                       {/* <Box fontSize={"25px"} fontWeight={"800"}>
@@ -756,7 +775,7 @@ const Home = ({ setNotification }) => {
                             ? `BET ${(
                                 accountlockinfo.betInfos[matchIndex].betAmount /
                                 Math.pow(10, 18)
-                              ).toFixed(3)} $WCB TO ` +
+                              ).toFixed(6)} $WCB TO ` +
                               (accountlockinfo.betInfos[matchIndex].choice == 3
                                 ? "DRAW"
                                 : (accountlockinfo.betInfos[matchIndex]
@@ -906,24 +925,39 @@ const Home = ({ setNotification }) => {
                             pending ||
                             lockinfo.matchInfos[matchIndex].result -
                               accountlockinfo.betInfos[matchIndex].choice !=
-                              0
+                              0 ||
+                            accountlockinfo.betInfos[matchIndex].awardAmount > 0
                           }
-                          style={{
-                            color: lockinfo.matchInfos[matchIndex].result.eq(
-                              accountlockinfo.betInfos[matchIndex].choice
-                            )
-                              ? "red !important"
-                              : "",
-                          }}
                           onClick={() => onClaim(matchIndex)}
                         >
-                          {lockinfo.matchInfos[matchIndex].result > 0
-                            ? lockinfo.matchInfos[matchIndex].result.eq(
-                                accountlockinfo.betInfos[matchIndex].choice
-                              )
-                              ? "CLAIM AWARD"
-                              : "YOU FAILED TO WIN THE BET"
-                            : "RESULT NOT READY"}
+                          {lockinfo.matchInfos[matchIndex].result > 0 ? (
+                            lockinfo.matchInfos[matchIndex].result.eq(
+                              accountlockinfo.betInfos[matchIndex].choice
+                            ) ? (
+                              <Box
+                                style={{
+                                  animation:
+                                    accountlockinfo.betInfos[matchIndex]
+                                      .awardAmount > 0
+                                      ? ""
+                                      : "claimable 1s infinite",
+                                  transition: "color 0.2s ease-out",
+                                }}
+                              >
+                                {accountlockinfo.betInfos[matchIndex]
+                                  .awardAmount > 0
+                                  ? `EARNED ${(
+                                      accountlockinfo.betInfos[matchIndex]
+                                        .awardAmount / Math.pow(10, 18)
+                                    ).toFixed(6)} $WCB`
+                                  : "CLAIM AWARD"}
+                              </Box>
+                            ) : (
+                              "YOU FAILED TO WIN THE BET"
+                            )
+                          ) : (
+                            "RESULT NOT READY"
+                          )}
                         </Button>
                       ) : (
                         ""

@@ -181,3 +181,17 @@ a:hover svg {
     transform: translate(0px, 0px);
   }
 }
+
+@keyframes claimable {
+  0% {
+    color: white;
+  }
+
+  50% {
+    color: red;
+  }
+
+  100% {
+    color: white;
+  }
+}
