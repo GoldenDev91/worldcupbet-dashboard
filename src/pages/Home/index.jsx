@@ -525,7 +525,13 @@ const Home = ({ setNotification }) => {
                       mr={mw650 ? "" : "20px"}
                       mb={mw650 ? "20px" : ""}
                     >
-                      <ColumnLayout>
+                      <ColumnLayout
+                        boxShadow={
+                          lockinfo.matchInfos[matchIndex].result == 1
+                            ? "0 0 5px 1px #4ADE80"
+                            : ""
+                        }
+                      >
                         <Flag
                           style={{
                             backgroundImage: `url('${
@@ -533,9 +539,14 @@ const Home = ({ setNotification }) => {
                             }')`,
                           }}
                         ></Flag>
+                        <Box></Box>
                         <Box
                           fontSize={40 - mw1150 * 20 + "px"}
-                          color={match.result === 1 ? "#4ADE80" : "#FFF"}
+                          color={
+                            lockinfo.matchInfos[matchIndex].result == 1
+                              ? "#4ADE80"
+                              : "#FFF"
+                          }
                           whiteSpace={"nowrap"}
                         >
                           {match.team1}
@@ -544,12 +555,45 @@ const Home = ({ setNotification }) => {
                           {`Rank: ${teamList[match.team1]?.rank}`}
                         </Box>
                       </ColumnLayout>
-                      <ColumnLayout mx={40 - mw1150 * 20 + "px"}>
+                      <ColumnLayout
+                        mx={40 - mw1150 * 20 + "px"}
+                        position={"relative"}
+                      >
                         <Box fontSize={40 - mw1150 * 20 + "px"} color={"#FFF"}>
                           VS
                         </Box>
+                        {/* <Box
+                          style={{
+                            background:
+                              "no-repeat center/100% url('/ball2022.png')",
+                            zIndex: "0",
+                          }}
+                          position={"absolute"}
+                          width={"80px"}
+                          height={"80px"}
+                        ></Box> */}
+                        <Box
+                          fontSize={24 - mw1150 * 8 + "px"}
+                          color={"#4ADE80"}
+                          mt={"10px"}
+                          boxShadow={
+                            lockinfo.matchInfos[matchIndex].result == 3
+                              ? "0 0 5px 1px #4ADE80"
+                              : ""
+                          }
+                        >
+                          {lockinfo.matchInfos[matchIndex].result == 3
+                            ? "DRAW"
+                            : ""}
+                        </Box>
                       </ColumnLayout>
-                      <ColumnLayout>
+                      <ColumnLayout
+                        boxShadow={
+                          lockinfo.matchInfos[matchIndex].result == 2
+                            ? "0 0 5px 1px #4ADE80"
+                            : ""
+                        }
+                      >
                         <Flag
                           style={{
                             backgroundImage: `url('${
@@ -559,7 +603,11 @@ const Home = ({ setNotification }) => {
                         ></Flag>
                         <Box
                           fontSize={40 - mw1150 * 20 + "px"}
-                          color={match.result === 2 ? "#4ADE80" : "#FFF"}
+                          color={
+                            lockinfo.matchInfos[matchIndex].result == 2
+                              ? "#4ADE80"
+                              : "#FFF"
+                          }
                           whiteSpace={"nowrap"}
                         >
                           {match.team2}
@@ -576,20 +624,30 @@ const Home = ({ setNotification }) => {
                       <RowLayout>
                         <Box color={"#AAA"}>{match.team1}:</Box>
                         <Box ml={"10px"}>
-                          {(match.team1AwardRate / Math.pow(10, 16)).toFixed(2)}
+                          {(
+                            lockinfo.matchInfos[matchIndex].team1AwardRate /
+                            Math.pow(10, 16)
+                          ).toFixed(2)}
                           %
                         </Box>
                       </RowLayout>
                       <RowLayout>
                         <Box color={"#AAA"}>Draw:</Box>
                         <Box ml={"10px"}>
-                          {(match.drawAwardRate / Math.pow(10, 16)).toFixed(2)}%
+                          {(
+                            lockinfo.matchInfos[matchIndex].drawAwardRate /
+                            Math.pow(10, 16)
+                          ).toFixed(2)}
+                          %
                         </Box>
                       </RowLayout>
                       <RowLayout>
                         <Box color={"#AAA"}>{match.team2}:</Box>
                         <Box ml={"10px"}>
-                          {(match.team2AwardRate / Math.pow(10, 16)).toFixed(2)}
+                          {(
+                            lockinfo.matchInfos[matchIndex].team2AwardRate /
+                            Math.pow(10, 16)
+                          ).toFixed(2)}
                           %
                         </Box>
                       </RowLayout>
@@ -625,7 +683,10 @@ const Home = ({ setNotification }) => {
                       <RowLayout>
                         <Box color={"#AAA"}>Total pool:</Box>
                         <Box ml={"10px"} width={"140px"}>
-                          {(match.betAmount / Math.pow(10, 18)).toFixed(2)}
+                          {(
+                            lockinfo.matchInfos[matchIndex].betAmount /
+                            Math.pow(10, 18)
+                          ).toFixed(2)}
                         </Box>
                       </RowLayout>
                       {/* <Box fontSize={"25px"} fontWeight={"800"}>
@@ -692,14 +753,17 @@ const Home = ({ setNotification }) => {
                           {betIndex === matchIndex
                             ? "CANCEL"
                             : accountlockinfo.betInfos[matchIndex].betAmount > 0
-                            ? accountlockinfo.betInfos[matchIndex].choice === 3
-                              ? "BET TO DRAW"
-                              : "BET TO " +
-                                (accountlockinfo.betInfos[matchIndex].choice ===
-                                1
-                                  ? match.team1
-                                  : match.team2
-                                ).toUpperCase()
+                            ? `BET ${(
+                                accountlockinfo.betInfos[matchIndex].betAmount /
+                                Math.pow(10, 18)
+                              ).toFixed(3)} $WCB TO ` +
+                              (accountlockinfo.betInfos[matchIndex].choice == 3
+                                ? "DRAW"
+                                : (accountlockinfo.betInfos[matchIndex]
+                                    .choice == 1
+                                    ? match.team1
+                                    : match.team2
+                                  ).toUpperCase())
                             : match.time > nowInSeconds
                             ? "PLACE BET"
                             : "FINISHED"}
@@ -840,16 +904,25 @@ const Home = ({ setNotification }) => {
                           fontSize={24 - mw1150 * 8 + "px"}
                           disabled={
                             pending ||
-                            lockinfo.matchInfos[matchIndex].result !==
-                              accountlockinfo.betInfos[matchIndex].choice
+                            lockinfo.matchInfos[matchIndex].result -
+                              accountlockinfo.betInfos[matchIndex].choice !=
+                              0
                           }
+                          style={{
+                            color: lockinfo.matchInfos[matchIndex].result.eq(
+                              accountlockinfo.betInfos[matchIndex].choice
+                            )
+                              ? "red !important"
+                              : "",
+                          }}
                           onClick={() => onClaim(matchIndex)}
                         >
                           {lockinfo.matchInfos[matchIndex].result > 0
-                            ? lockinfo.matchInfos[matchIndex].result ===
-                              accountlockinfo.betInfos[matchIndex].choice
+                            ? lockinfo.matchInfos[matchIndex].result.eq(
+                                accountlockinfo.betInfos[matchIndex].choice
+                              )
                               ? "CLAIM AWARD"
-                              : "YOU FAILED TO WIN"
+                              : "YOU FAILED TO WIN THE BET"
                             : "RESULT NOT READY"}
                         </Button>
                       ) : (
@@ -1364,7 +1437,13 @@ const StyledContainer = styled(Box)`
 const Background = styled(Box)`
   width: 100vw;
   min-height: 100vh;
+  background-image: url("/background.png");
   background-image: url("/background2.png");
+  background-image: url("/form-1.jpg");
+  /* background-image: url("/single-column-leaderboard.jpg"); */
+  /* background-image: url("/Stadium2.webp"); */
+  /* background-image: url("/Stadium3.jpg");  */
+  /* background-image: url("/world-clocks.jpg"); */
   /* filter: blur(4px) grayscale(0); */
   /* filter: brightness(0.9); */
   background-position: center;
