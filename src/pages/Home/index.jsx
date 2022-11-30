@@ -333,7 +333,7 @@ const Home = ({ setNotification }) => {
         </Box>
         <ConnectMenu setNotification={setNotification} />
       </HomeTopBar> */}
-      <Box height={"100px"}></Box>
+      <Box height={mw1150 ? "100px" : "220px"}></Box>
       <Mainpage
         fontFamily={"Montserrat,sans-serif"}
         position={"relative"}
@@ -1024,10 +1024,11 @@ const Home = ({ setNotification }) => {
                         >
                           {betIndex === matchIndex
                             ? "CANCEL"
-                            : accountlockinfo.betInfos[matchIndex]?.betAmount > 0
+                            : accountlockinfo.betInfos[matchIndex]?.betAmount >
+                              0
                             ? `BET ${(
-                                accountlockinfo.betInfos[matchIndex]?.betAmount /
-                                Math.pow(10, 18)
+                                accountlockinfo.betInfos[matchIndex]
+                                  ?.betAmount / Math.pow(10, 18)
                               ).toFixed(6)} $WCB TO ` +
                               (accountlockinfo.betInfos[matchIndex]?.choice == 3
                                 ? "DRAW"
@@ -1179,7 +1180,8 @@ const Home = ({ setNotification }) => {
                             lockinfo.matchInfos[matchIndex]?.result -
                               accountlockinfo.betInfos[matchIndex]?.choice !=
                               0 ||
-                            accountlockinfo.betInfos[matchIndex]?.awardAmount > 0
+                            accountlockinfo.betInfos[matchIndex]?.awardAmount >
+                              0
                           }
                           onClick={() => onClaim(matchIndex)}
                         >
