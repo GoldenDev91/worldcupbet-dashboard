@@ -447,8 +447,8 @@ const Home = ({ setNotification }) => {
                 {account ? (
                   <RowLayout>
                     <Box mr={"10px"}>{"$WCB"}</Box>
-                    {accountlockinfo.totalAward !== undefined ? (
-                      (accountlockinfo.totalAward / Math.pow(10, 18)).toFixed(6)
+                    {accountlockinfo.totalBet !== undefined ? (
+                      (accountlockinfo.totalBet / Math.pow(10, 18)).toFixed(6)
                     ) : (
                       <Skeleton
                         variant={"text"}
@@ -468,8 +468,8 @@ const Home = ({ setNotification }) => {
                 {account ? (
                   <RowLayout>
                     <Box mr={"10px"}>{"$WCB"}</Box>
-                    {accountlockinfo.totalBet !== undefined ? (
-                      (accountlockinfo.totalBet / Math.pow(10, 18)).toFixed(6)
+                    {accountlockinfo.totalAward !== undefined ? (
+                      (accountlockinfo.totalAward / Math.pow(10, 18)).toFixed(6)
                     ) : (
                       <Skeleton
                         variant={"text"}
@@ -1217,7 +1217,7 @@ const Home = ({ setNotification }) => {
                                   ).toFixed(6)}
                                     $WCB`
                                 ) : (
-                                  <Glow>"CLAIM AWARD"</Glow>
+                                  <Glow>{"CLAIM AWARD"}</Glow>
                                 )}
                               </Box>
                             ) : (
