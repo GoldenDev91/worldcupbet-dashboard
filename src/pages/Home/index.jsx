@@ -1126,26 +1126,27 @@ const Home = ({ setNotification }) => {
                             lockinfo.matchInfos[matchIndex].result.eq(
                               accountlockinfo.betInfos[matchIndex].choice
                             ) ? (
-                              <Glow>
-                                <Box
-                                  style={{
-                                    animation:
-                                      accountlockinfo.betInfos[matchIndex]
-                                        .awardAmount > 0
-                                        ? ""
-                                        : "claimable 1s infinite",
-                                    transition: "color 0.2s ease-out",
-                                  }}
-                                >
-                                  {accountlockinfo.betInfos[matchIndex]
-                                    .awardAmount > 0
-                                    ? `EARNED ${(
-                                        accountlockinfo.betInfos[matchIndex]
-                                          .awardAmount / Math.pow(10, 18)
-                                      ).toFixed(6)} $WCB`
-                                    : "CLAIM AWARD"}
-                                </Box>
-                              </Glow>
+                              <Box
+                                style={{
+                                  animation:
+                                    accountlockinfo.betInfos[matchIndex]
+                                      .awardAmount > 0
+                                      ? ""
+                                      : "claimable 1s infinite",
+                                  transition: "color 0.2s ease-out",
+                                }}
+                              >
+                                {accountlockinfo.betInfos[matchIndex]
+                                  .awardAmount > 0 ? (
+                                  `EARNED ${(
+                                    accountlockinfo.betInfos[matchIndex]
+                                      .awardAmount / Math.pow(10, 18)
+                                  ).toFixed(6)}
+                                    $WCB`
+                                ) : (
+                                  <Glow>"CLAIM AWARD"</Glow>
+                                )}
+                              </Box>
                             ) : (
                               "YOU FAILED TO WIN THE BET"
                             )
