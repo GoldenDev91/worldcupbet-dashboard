@@ -469,7 +469,20 @@ const Home = ({ setNotification }) => {
               </Box>
             </RowLayout>
           </Panel>
-          <Panel color={"#EEE"} justifyContent={"center"}>
+          <Panel
+            color={"#EEE"}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"center"}
+          >
+            <Box
+              fontSize={"20px"}
+              color={"#fff"}
+              fontWeight={"600"}
+              mb={"20px"}
+            >
+              Smart Contracts
+            </Box>
             <RowLayout justifyContent={"space-between"}>
               <Box fontSize={"20px"}>$WCB</Box>
               <Box fontSize={"15px"}>
