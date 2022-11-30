@@ -45,6 +45,8 @@ function App() {
           curpage={curpage}
           setCurPage={setCurPage}
         />
+        {/* <Trophy /> */}
+        {/* <Ball /> */}
         <Routes>
           <Route
             exact
@@ -79,6 +81,27 @@ function App() {
     </BrowserRouter>
   );
 }
+
+const Trophy = styled(Box)`
+  background-image: url(/trophy.png);
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  left: calc(90vw - 50px);
+  top: 80vh;
+  background-size: 100% 100%;
+  z-index: 1;
+`;
+const Ball = styled(Box)`
+  background-image: url(/ball2022.png);
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  left: calc(10vw - 50px);
+  top: 80vh;
+  background-size: 100% 100%;
+  z-index: 1;
+`;
 
 const StyledContainer = styled(Box)`
   position: relative;

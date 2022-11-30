@@ -514,6 +514,7 @@ const Home = ({ setNotification }) => {
               </Box>
             </RowLayout>
           </Panel>
+          <Trophy></Trophy>
           <Panel
             color={"#EEE"}
             display={"flex"}
@@ -1586,6 +1587,22 @@ const Glow = styled(Box)`
         0 0 10px #ff4da6, 0 0 12px #ff4da6, 0 0 14px #ff4da6, 0 0 16px #ff4da6;
     }
   }
+`;
+
+const Trophy = styled(Box)`
+  background-image: url(/trophy.png);
+  background-position: center;
+  width: 100px;
+  height: 100px;
+  align-self: center;
+`;
+const Ball = styled(Box)`
+  background-image: url(/ball2022.png);
+  background-position: center;
+  background-size:100%;
+  width: 100px;
+  height: 100px;
+  align-self: center;
 `;
 
 export default Home;
