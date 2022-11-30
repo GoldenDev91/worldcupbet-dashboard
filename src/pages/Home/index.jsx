@@ -147,7 +147,16 @@ const Home = ({ setNotification }) => {
   useEffect(() => {
     setTimeout(() => {
       setNowInSeconds(Math.round(Date.now() / 1000));
-    }, 1000);
+    }, 300);
+    setTimeout(() => {
+      setNowInSeconds(Math.round(Date.now() / 1000));
+    }, 600);
+    setTimeout(() => {
+      setNowInSeconds(Math.round(Date.now() / 1000));
+    }, 900);
+    setTimeout(() => {
+      setNowInSeconds(Math.round(Date.now() / 1000));
+    }, 1200);
   }, [nowInSeconds]);
 
   // const calcClaimable = () => {
@@ -345,9 +354,10 @@ const Home = ({ setNotification }) => {
         position={"relative"}
         display={"flex"}
         flexWrap={"wrap"}
+        width={"100%"}
       >
-        {Object.keys(lockinfo).length === 0 || true
-          ? [0, 1, 2, 3, 4, 5].map((skelIdx) => (
+        {Object.keys(lockinfo).length === 0
+          ? [...Array(64).keys()].map((skelIdx) => (
               <RowLayout
                 key={"skel" + skelIdx}
                 justifyContent={"center !important"}
@@ -358,159 +368,7 @@ const Home = ({ setNotification }) => {
                     fontSize={28 - mw2000 * 16 + "px"}
                   >
                     <Box color={"#CCC"} mt={"-20px"}>
-                      #{skelIdx + 1}
-                    </Box>
-                    <Box color={"#CCC"} mt={"-20px"}>
-                      <Skeleton
-                        variant={"text"}
-                        width={200 - mw2000 * 100 + "px"}
-                        style={{ transform: "unset" }}
-                      />
-                    </Box>
-                  </RowLayout>
-                  <RowLayout my={40 - mw2000 * 20 + "px"}>
-                    <Box
-                      fontSize={40 - mw2000 * 24 + "px"}
-                      fontWeight={"800"}
-                      color={"#CCC"}
-                      mt={"-20px"}
-                    >
-                      <Skeleton
-                        variant={"text"}
-                        width={500 - mw2000 * 250 + "px"}
-                        style={{ transform: "unset" }}
-                      />
-                    </Box>
-                  </RowLayout>
-                  <RowLayout
-                    justifyContent={"space-around"}
-                    flexDirection={mw650 ? "column" : "row"}
-                  >
-                    <RowLayout
-                      mr={mw650 ? "" : "20px"}
-                      mb={mw650 ? "20px" : ""}
-                    >
-                      <ColumnLayout>
-                        <Skeleton
-                          variant={"text"}
-                          width={120 - mw2000 * 60 + "px"}
-                          height={72 - mw2000 * 36 + "px"}
-                          style={{ transform: "unset" }}
-                        />
-                        <Box fontSize={40 - mw2000 * 20 + "px"}>
-                          <Skeleton
-                            variant={"text"}
-                            width={"100px"}
-                            style={{ transform: "unset" }}
-                          />
-                        </Box>
-                        <Box fontSize={24 - mw2000 * 12 + "px"} color={"#CCC"}>
-                          <Skeleton
-                            variant={"text"}
-                            width={"60px"}
-                            style={{ transform: "unset" }}
-                          />
-                        </Box>
-                      </ColumnLayout>
-                      <ColumnLayout mx={40 - mw2000 * 20 + "px"}>
-                        <Box fontSize={40 - mw2000 * 20 + "px"} color={"#FFF"}>
-                          VS
-                        </Box>
-                      </ColumnLayout>
-                      <ColumnLayout>
-                        <Skeleton
-                          variant={"text"}
-                          width={120 - mw2000 * 60 + "px"}
-                          height={72 - mw2000 * 36 + "px"}
-                          style={{ transform: "unset" }}
-                        />
-                        <Box fontSize={40 - mw2000 * 20 + "px"}>
-                          <Skeleton
-                            variant={"text"}
-                            width={"100px"}
-                            style={{ transform: "unset" }}
-                          />
-                        </Box>
-                        <Box fontSize={24 - mw2000 * 12 + "px"} color={"#FFF"}>
-                          <Skeleton
-                            variant={"text"}
-                            width={"60px"}
-                            style={{ transform: "unset" }}
-                          />
-                        </Box>
-                      </ColumnLayout>
-                    </RowLayout>
-                    <ColumnLayout
-                      alignItems={"flex-start"}
-                      fontSize={24 - mw2000 * 8 + "px"}
-                    >
-                      <RowLayout>
-                        <Box color={"#AAA"}>
-                          <Skeleton
-                            variant={"text"}
-                            width={"100px"}
-                            style={{ transform: "unset" }}
-                          />
-                        </Box>
-                        <Box ml={"10px"}>{": 0.00%"}</Box>
-                      </RowLayout>
-                      <RowLayout>
-                        <Box color={"#AAA"}>Draw:</Box>
-                        <Box ml={"10px"}>0.00%</Box>
-                      </RowLayout>
-                      <RowLayout>
-                        <Box color={"#AAA"}>
-                          <Skeleton
-                            variant={"text"}
-                            width={"100px"}
-                            style={{ transform: "unset" }}
-                          />
-                        </Box>
-                        <Box ml={"10px"}>{": 0.00%"}</Box>
-                      </RowLayout>
-                      <RowLayout my={20 - mw2000 * 10 + "px"}>
-                        <Box color={"#AAA"}>Time until match:</Box>
-                        <Box
-                          ml={"10px"}
-                          // width={"180px"}
-                          fontFamily={
-                            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;"
-                          }
-                          fontWeight={"200"}
-                        >
-                          {"00 Day(s) 00:00:00"}
-                        </Box>
-                      </RowLayout>
-                      <RowLayout>
-                        <Box color={"#AAA"}>Total bet:</Box>
-                        <Box ml={"10px"} width={"140px"}>
-                          <Skeleton
-                            variant={"text"}
-                            width={"100px"}
-                            style={{ transform: "unset" }}
-                          />
-                        </Box>
-                      </RowLayout>
-                      <RowLayout>
-                        <Box color={"#AAA"}>Total award:</Box>
-                        <Box ml={"10px"} width={"140px"}>
-                          <Skeleton
-                            variant={"text"}
-                            width={"100px"}
-                            style={{ transform: "unset" }}
-                          />
-                        </Box>
-                      </RowLayout>
-                    </ColumnLayout>
-                  </RowLayout>
-                </Panel>
-                <Panel flex={"1 0 0"}>
-                  <RowLayout
-                    justifyContent={"space-between"}
-                    fontSize={28 - mw2000 * 16 + "px"}
-                  >
-                    <Box color={"#CCC"} mt={"-20px"}>
-                      #{skelIdx + 1}
+                      #{skelIdx * 2 + 1}
                     </Box>
                     <Box color={"#CCC"} mt={"-20px"}>
                       <Skeleton
@@ -659,7 +517,11 @@ const Home = ({ setNotification }) => {
               </RowLayout>
             ))
           : lockinfo.matchInfos.map((match, matchIndex) => (
-              <RowLayout width={"100%"} gap={"20px"} key={matchIndex}>
+              <RowLayout
+                width={"100%"}
+                key={"row" + matchIndex}
+                justifyContent={"center !important"}
+              >
                 <Panel flex={"1 0 0"}>
                   <RowLayout
                     justifyContent={"space-between"}
@@ -728,15 +590,15 @@ const Home = ({ setNotification }) => {
                           VS
                         </Box>
                         {/* <Box
-                          style={{
-                            background:
-                              "no-repeat center/100% url('/ball2022.png')",
-                            zIndex: "0",
-                          }}
-                          position={"absolute"}
-                          width={"80px"}
-                          height={"80px"}
-                        ></Box> */}
+                        style={{
+                          background:
+                            "no-repeat center/100% url('/ball2022.png')",
+                          zIndex: "0",
+                        }}
+                        position={"absolute"}
+                        width={"80px"}
+                        height={"80px"}
+                      ></Box> */}
                         <Box
                           fontSize={24 - mw2000 * 8 + "px"}
                           color={"#4ADE80"}
@@ -864,34 +726,34 @@ const Home = ({ setNotification }) => {
                         </Box>
                       </RowLayout>
                       {/* <Box fontSize={"25px"} fontWeight={"800"}>
-                    {!account ? (
-                      "0.0000000000"
-                    ) : accountlockinfo.balance !== undefined ? (
-                      (accountlockinfo.balance / Math.pow(10, 18)).toFixed(10)
-                    ) : (
-                      <Skeleton
-                        variant={"text"}
-                        width={"100px"}
-                        style={{ transform: "unset" }}
-                      />
-                    )}
-                  </Box>
-                  <Box fontSize={"12px"} color={"#CCC"}>
-                    {!account ? (
-                      "USDT Value: $0.00"
-                    ) : accountlockinfo.balance !== undefined ? (
-                      `USDT Value: $${(
-                        (accountlockinfo.balance / Math.pow(10, 18)) *
-                        price
-                      ).toFixed(2)}`
-                    ) : (
-                      <Skeleton
-                        variant={"text"}
-                        width={"80px"}
-                        style={{ transform: "unset" }}
-                      />
-                    )}
-                  </Box> */}
+                  {!account ? (
+                    "0.0000000000"
+                  ) : accountlockinfo.balance !== undefined ? (
+                    (accountlockinfo.balance / Math.pow(10, 18)).toFixed(10)
+                  ) : (
+                    <Skeleton
+                      variant={"text"}
+                      width={"100px"}
+                      style={{ transform: "unset" }}
+                    />
+                  )}
+                </Box>
+                <Box fontSize={"12px"} color={"#CCC"}>
+                  {!account ? (
+                    "USDT Value: $0.00"
+                  ) : accountlockinfo.balance !== undefined ? (
+                    `USDT Value: $${(
+                      (accountlockinfo.balance / Math.pow(10, 18)) *
+                      price
+                    ).toFixed(2)}`
+                  ) : (
+                    <Skeleton
+                      variant={"text"}
+                      width={"80px"}
+                      style={{ transform: "unset" }}
+                    />
+                  )}
+                </Box> */}
                     </ColumnLayout>
                   </RowLayout>
                   {Object.keys(accountlockinfo).length === 0 ? (
