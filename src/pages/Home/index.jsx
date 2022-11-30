@@ -417,7 +417,7 @@ const Home = ({ setNotification }) => {
               fontWeight={"600"}
               mb={"20px"}
             >
-              My Bets Status
+              My Bet Status
             </Box>
 
             <RowLayout justifyContent={"space-between"}>
@@ -458,6 +458,24 @@ const Home = ({ setNotification }) => {
                   <Box mr={"10px"}>{"$WCB"}</Box>
                   {accountlockinfo.totalBet !== undefined ? (
                     (accountlockinfo.totalBet / Math.pow(10, 18)).toFixed(6)
+                  ) : (
+                    <Skeleton
+                      variant={"text"}
+                      width={"100px"}
+                      style={{ transform: "unset" }}
+                    />
+                  )}
+                </RowLayout>
+              </Box>
+            </RowLayout>
+            
+            <RowLayout justifyContent={"space-between"} mt={'20px'}>
+              <Box fontSize={"20px"}>Current Balance</Box>
+              <Box fontSize={"15px"}>
+                <RowLayout>
+                  <Box mr={"10px"}>{"$WCB"}</Box>
+                  {balance !== undefined ? (
+                    (balance / Math.pow(10, 18)).toFixed(6)
                   ) : (
                     <Skeleton
                       variant={"text"}
@@ -542,7 +560,7 @@ const Home = ({ setNotification }) => {
           ? [
               ...Array(
                 lockinfo.matchCount === undefined
-                  ? 32
+                  ? 16
                   : Number(lockinfo.matchCount.toString())
               ).keys(),
             ].map((skelIdx) => (
@@ -1451,8 +1469,8 @@ const StyledContainer = styled(Box)`
 const Background = styled(Box)`
   width: 100vw;
   min-height: 100vh;
-  background-image: url("/background.png");
-  background-image: url("/background2.png");
+  /* background-image: url("/background.png"); */
+  /* background-image: url("/background2.png"); */
   background-image: url("/form-1.jpg");
   /* background-image: url("/single-column-leaderboard.jpg"); */
   /* background-image: url("/Stadium2.webp"); */

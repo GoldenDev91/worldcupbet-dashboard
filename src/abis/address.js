@@ -35,4 +35,4 @@ export const MULTICALL2_ADDR = {
   97: "",
 };
 
-export const WORKING_NETWORK_ID = 97;
+export const WORKING_NETWORK_ID = 5;
