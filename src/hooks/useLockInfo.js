@@ -34,6 +34,7 @@ export function LockInfoProvider({ children }) {
   const [accountlockinfo, setAccountLockInfo] = useState({});
   const [accounthistory, setAccountHistory] = useState({});
   const [lockallow, setLockAllow] = useState(false);
+  let clean = true;
 
   const { chainID } = useWeb3Context();
 
@@ -57,7 +58,6 @@ export function LockInfoProvider({ children }) {
         },
       ];
       const result = await multicall(LockABI, calls, chainID);
-      console.log("globalResult", result);
       calls = [];
       for (let i = 0; i < result[0][0]; i++) {
         calls.push({
@@ -71,8 +71,16 @@ export function LockInfoProvider({ children }) {
           params: [i],
         });
       }
+      const temp = {
+        matchCount: result[0][0],
+        totalBetAmount: result[1][0],
+        totalAwardAmount: result[2][0],
+      };
+      if (clean) setLockInfo(temp);
+      clean = false;
+      console.log("global :>> ", temp);
+      console.log("lockinfo :>> ", lockinfo);
       const result1 = await multicall(LockABI, calls, chainID);
-      console.log(result1);
       let matchInfos = [];
       for (let i = 0; i < result[0][0]; i++) {
         const info = {
@@ -97,22 +105,22 @@ export function LockInfoProvider({ children }) {
           ],
         });
       }
-      console.log(matchInfos);
-      const temp = {
+      console.log("matchInfos :>> ", matchInfos);
+      setLockInfo({
         matchCount: result[0][0],
         totalBetAmount: result[1][0],
         totalAwardAmount: result[2][0],
         matchInfos: matchInfos,
-      };
-      console.log("temp :>> ", temp);
-
-      setLockInfo(temp);
+      });
+      console.log("lockInfo :>> ", lockinfo);
     } catch (error) {
       console.log(error);
     }
   }
   async function fetchAccountLockData() {
+    console.log("fetchAccountLockData");
     if (Object.keys(lockinfo).length === 0) return;
+    console.log(Object.keys(lockinfo).length);
     try {
       let calls = [];
       for (let i = 0; i < lockinfo.matchCount; i++) {
@@ -134,16 +142,19 @@ export function LockInfoProvider({ children }) {
       }
 
       const result = await multicall(LockABI, calls, chainID);
-      console.log(result);
+      console.log("accountinfo :>> ", result);
       let betInfos = [];
       let totalBet = BigNumber.from("0");
       let totalAward = BigNumber.from("0");
+      let totalBetCount = BigNumber.from("0");
       for (let i = 0; i < lockinfo.matchCount; i++) {
         const info = {
           choice: result[i * 3][0],
           betAmount: result[i * 3 + 1][0],
           awardAmount: result[i * 3 + 2][0],
         };
+        if (!info.choice.eq(BigNumber.from("0")))
+          totalBetCount += BigNumber.from("1");
         totalBet += info.betAmount;
         totalAward += info.awardAmount;
         betInfos.push(info);
@@ -152,6 +163,7 @@ export function LockInfoProvider({ children }) {
         totalBet: totalBet,
         totalAward: totalAward,
         betInfos: betInfos,
+        totalBetCount: totalBetCount,
       };
       console.log("acountlockinfo", temp);
       setAccountLockInfo(temp);
@@ -223,7 +235,7 @@ export function LockInfoProvider({ children }) {
       fetchAllowance();
     }, 20000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, chainID, lockinfo.matchCount]);
+  }, [account, chainID, lockinfo]);
 
   // useEffect(() => {
   //   if (chainID !== WORKING_NETWORK_ID) return;

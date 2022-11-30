@@ -159,22 +159,6 @@ const Home = ({ setNotification }) => {
     }, 1200);
   }, [nowInSeconds]);
 
-  // const calcClaimable = () => {
-  //   if (accountlockinfo.depositDate === undefined) return;
-  //   const timePassed = Date.now() / 1000 - accountlockinfo.depositDate;
-  //   const claim =
-  //     (accountlockinfo.balance * lockinfo.interest * timePassed) /
-  //     365 /
-  //     86400 /
-  //     Math.pow(10, 18);
-  //   if (!isNaN(claim) && claim > 0) setClaimable(claim);
-  // };
-
-  // useEffect(
-  //   () => calcClaimable(),
-  //   [accountlockinfo, accountlockinfo.depositDate]
-  // );
-
   function numberWithCommas(x) {
     if (!x) return;
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -356,8 +340,199 @@ const Home = ({ setNotification }) => {
         flexWrap={"wrap"}
         width={"100%"}
       >
-        {Object.keys(lockinfo).length === 0
-          ? [...Array(32).keys()].map((skelIdx) => (
+        <RowLayout alignItems={"unset"}>
+          <Panel>
+            <Box fontSize={"20px"} color={"#fff"} fontWeight={"600"}>
+              Total Matches registered
+            </Box>
+            <RowLayout
+              fontSize={"32px"}
+              fontWeight={"800"}
+              display={"flex"}
+              justifyContent={"flex-start"}
+            >
+              {!lockinfo || lockinfo.matchCount === undefined ? (
+                <Skeleton
+                  variant={"text"}
+                  width={"100px"}
+                  style={{ transform: "unset" }}
+                />
+              ) : (
+                <Box>{lockinfo.matchCount.toString()}</Box>
+              )}
+            </RowLayout>
+          </Panel>
+          <Panel>
+            <Box fontSize={"20px"} color={"#fff"} fontWeight={"600"}>
+              Total $WCB Bet Amount
+            </Box>
+            <RowLayout
+              fontSize={"32px"}
+              fontWeight={"800"}
+              display={"flex"}
+              justifyContent={"flex-start"}
+            >
+              {!lockinfo ? (
+                "0.000000"
+              ) : lockinfo.totalBetAmount !== undefined ? (
+                (lockinfo.totalBetAmount / Math.pow(10, 18)).toFixed(6)
+              ) : (
+                <Skeleton
+                  variant={"text"}
+                  width={"100px"}
+                  style={{ transform: "unset" }}
+                />
+              )}
+            </RowLayout>
+          </Panel>
+          <Panel>
+            <Box fontSize={"20px"} color={"#fff"} fontWeight={"600"}>
+              Total $WCB Award Amount
+            </Box>
+            <RowLayout
+              fontSize={"32px"}
+              fontWeight={"800"}
+              display={"flex"}
+              justifyContent={"flex-start"}
+            >
+              {!lockinfo ? (
+                "0.000000"
+              ) : lockinfo.totalAwardAmount !== undefined ? (
+                (lockinfo.totalAwardAmount / Math.pow(10, 18)).toFixed(6)
+              ) : (
+                <Skeleton
+                  variant={"text"}
+                  width={"100px"}
+                  style={{ transform: "unset" }}
+                />
+              )}
+            </RowLayout>
+          </Panel>
+        </RowLayout>
+        <RowLayout alignItems={"unset"}>
+          <Panel>
+            <Box
+              fontSize={"20px"}
+              color={"#fff"}
+              fontWeight={"600"}
+              mb={"20px"}
+            >
+              My Bets Status
+            </Box>
+
+            <RowLayout justifyContent={"space-between"}>
+              <Box fontSize={"20px"}>Bets</Box>
+              <Box fontSize={"15px"}>
+                {accountlockinfo.totalBetCount !== undefined ? (
+                  Number(accountlockinfo.totalBetCount.toString())
+                ) : (
+                  <Skeleton
+                    variant={"text"}
+                    width={"100px"}
+                    style={{ transform: "unset" }}
+                  />
+                )}
+              </Box>
+            </RowLayout>
+            <RowLayout justifyContent={"space-between"}>
+              <Box fontSize={"20px"}>Total Bet Amount</Box>
+              <Box fontSize={"15px"}>
+                <RowLayout>
+                  <Box mr={"10px"}>{"$WCB"}</Box>
+                  {accountlockinfo.totalAward !== undefined ? (
+                    (accountlockinfo.totalAward / Math.pow(10, 18)).toFixed(6)
+                  ) : (
+                    <Skeleton
+                      variant={"text"}
+                      width={"100px"}
+                      style={{ transform: "unset" }}
+                    />
+                  )}
+                </RowLayout>
+              </Box>
+            </RowLayout>
+            <RowLayout justifyContent={"space-between"}>
+              <Box fontSize={"20px"}>Total Award Amount</Box>
+              <Box fontSize={"15px"}>
+                <RowLayout>
+                  <Box mr={"10px"}>{"$WCB"}</Box>
+                  {accountlockinfo.totalBet !== undefined ? (
+                    (accountlockinfo.totalBet / Math.pow(10, 18)).toFixed(6)
+                  ) : (
+                    <Skeleton
+                      variant={"text"}
+                      width={"100px"}
+                      style={{ transform: "unset" }}
+                    />
+                  )}
+                </RowLayout>
+              </Box>
+            </RowLayout>
+          </Panel>
+          <Panel color={"#EEE"} justifyContent={"center"}>
+            <RowLayout justifyContent={"space-between"}>
+              <Box fontSize={"20px"}>$WCB</Box>
+              <Box fontSize={"15px"}>
+                <a href="https://goerli.etherscan.io/address/0x929E9E7af59b6061f7CE94d7313393dBFee85BCe">
+                  <RowLayout>
+                    View on Etherscan
+                    <FaExternalLinkAlt></FaExternalLinkAlt>
+                  </RowLayout>
+                </a>
+              </Box>
+            </RowLayout>
+            <RowLayout justifyContent={"space-between"}>
+              <Box fontSize={"20px"}>World Cup Bet</Box>
+              <Box fontSize={"15px"}>
+                <a href="https://goerli.etherscan.io/address/0x63274c9d186154245bC92ca203ec65F3C1724d5F">
+                  <RowLayout>
+                    View on Etherscan
+                    <FaExternalLinkAlt></FaExternalLinkAlt>
+                  </RowLayout>
+                </a>
+              </Box>
+            </RowLayout>
+            {/* <Box fontSize={"20px"} fontWeight={"800"}>
+              <RowLayout justifyContent={"space-between"}>
+                <Box>$TWC APR</Box>
+                <Box
+                  fontSize={"18px"}
+                  color={"#00FF31"}
+                  // border={"1px #eaaf0e solid"}
+                  // borderBottom={"0"}
+                  borderRadius={"10px"}
+                  boxShadow={
+                    "#eaaf0e 0px -1px 0px, #eaaf0e -1px -2px 0px, #eaaf0e 1px -2px 0px"
+                  }
+                  padding={"4px"}
+                >
+                  {!lockinfo ? (
+                    "0.00%"
+                  ) : lockinfo.totalStaked !== undefined ? (
+                    (lockinfo.interest / Math.pow(10, 16)).toFixed(2) + "%"
+                  ) : (
+                    <Skeleton
+                      variant={"text"}
+                      width={"70px"}
+                      style={{ transform: "unset" }}
+                    />
+                  )}
+                </Box>
+              </RowLayout>
+            </Box> */}
+          </Panel>
+        </RowLayout>
+        <ColumnLayout>
+          <WinText>BET NOW TO EARN!</WinText>
+        </ColumnLayout>
+        {lockinfo.matchInfos === undefined
+          ? [
+              ...Array(
+                lockinfo.matchCount === undefined
+                  ? 32
+                  : Number(lockinfo.matchCount.toString())
+              ).keys(),
+            ].map((skelIdx) => (
               <RowLayout
                 key={"skel" + skelIdx}
                 justifyContent={"center !important"}
@@ -368,7 +543,7 @@ const Home = ({ setNotification }) => {
                     fontSize={28 - mw2000 * 16 + "px"}
                   >
                     <Box color={"#CCC"} mt={"-20px"}>
-                      #{skelIdx * 2 + 1}
+                      #{skelIdx + 1}
                     </Box>
                     <Box color={"#CCC"} mt={"-20px"}>
                       <Skeleton
@@ -727,7 +902,7 @@ const Home = ({ setNotification }) => {
                       </RowLayout>
                       {/* <Box fontSize={"25px"} fontWeight={"800"}>
                   {!account ? (
-                    "0.0000000000"
+                    "0.000000"
                   ) : accountlockinfo.balance !== undefined ? (
                     (accountlockinfo.balance / Math.pow(10, 18)).toFixed(10)
                   ) : (
@@ -951,24 +1126,26 @@ const Home = ({ setNotification }) => {
                             lockinfo.matchInfos[matchIndex].result.eq(
                               accountlockinfo.betInfos[matchIndex].choice
                             ) ? (
-                              <Box
-                                style={{
-                                  animation:
-                                    accountlockinfo.betInfos[matchIndex]
-                                      .awardAmount > 0
-                                      ? ""
-                                      : "claimable 1s infinite",
-                                  transition: "color 0.2s ease-out",
-                                }}
-                              >
-                                {accountlockinfo.betInfos[matchIndex]
-                                  .awardAmount > 0
-                                  ? `EARNED ${(
+                              <Glow>
+                                <Box
+                                  style={{
+                                    animation:
                                       accountlockinfo.betInfos[matchIndex]
-                                        .awardAmount / Math.pow(10, 18)
-                                    ).toFixed(6)} $WCB`
-                                  : "CLAIM AWARD"}
-                              </Box>
+                                        .awardAmount > 0
+                                        ? ""
+                                        : "claimable 1s infinite",
+                                    transition: "color 0.2s ease-out",
+                                  }}
+                                >
+                                  {accountlockinfo.betInfos[matchIndex]
+                                    .awardAmount > 0
+                                    ? `EARNED ${(
+                                        accountlockinfo.betInfos[matchIndex]
+                                          .awardAmount / Math.pow(10, 18)
+                                      ).toFixed(6)} $WCB`
+                                    : "CLAIM AWARD"}
+                                </Box>
+                              </Glow>
                             ) : (
                               "YOU FAILED TO WIN THE BET"
                             )
@@ -984,234 +1161,6 @@ const Home = ({ setNotification }) => {
                 </Panel>
               </RowLayout>
             ))}
-        {/* <RowLayout alignItems={"unset"}>
-          <Panel flex={"1 0 0"}>
-            <RowLayout justifyContent={"space-between"}>
-              <Box fontSize={"30px"} fontWeight={"800"}>
-                Stake
-              </Box>
-              <RowLayout>
-                <Box fontSize={"14px"}>Balance:</Box>
-                <Box ml={"10px"}>
-                  {!account ? (
-                    "0.000000"
-                  ) : accountlockinfo.balance !== undefined ? (
-                    (balance / Math.pow(10, 18)).toFixed(6)
-                  ) : (
-                    <Skeleton
-                      variant={"text"}
-                      width={"100px"}
-                      style={{ transform: "unset" }}
-                    />
-                  )}
-                </Box>
-              </RowLayout>
-            </RowLayout>
-            <Box
-              width={"100%"}
-              backgroundColor={"white"}
-              height={"4px"}
-              my={"15px"}
-            ></Box>
-            <Box my={"24px"}>
-              <InputPanel>
-                <InputField>
-                  <input
-                    type={"text"}
-                    placeholder={"0.00"}
-                    value={depositAmount}
-                    onChange={(e) => {
-                      setMaxPressed(false);
-                      setDepositAmount(e.target.value);
-                    }}
-                  />
-                  <Button
-                    type={"max"}
-                    width={"64px"}
-                    height={"46px"}
-                    onClick={() => {
-                      setDepositAmount((balance / Math.pow(10, 18)).toFixed(6));
-                      setMaxPressed(true);
-                    }}
-                  >
-                    Max
-                  </Button>
-                </InputField>
-                {lockallow ? (
-                  <Button
-                    type={"primary"}
-                    width={sm ? "100%" : "143px"}
-                    height={"50px"}
-                    disabled={
-                      pending || !Number(balance) || !Number(depositAmount)
-                    }
-                    onClick={() => onDeposit()}
-                  >
-                    DEPOSIT
-                  </Button>
-                ) : (
-                  <Button
-                    type={"primary"}
-                    width={sm ? "100%" : "143px"}
-                    height={"50px"}
-                    disabled={pending}
-                    onClick={() => {
-                      !account ? onConnect() : onApproveContract();
-                    }}
-                  >
-                    {!account ? "Connect" : "Approve"}
-                  </Button>
-                )}
-              </InputPanel>
-              <InputPanel mt={"16px"}>
-                <InputField>
-                  <input
-                    type={"text"}
-                    placeholder={"0.00"}
-                    value={withdrawAmount}
-                    onChange={(e) => {
-                      setMaxPressed(false);
-                      setWithdrawAmount(e.target.value);
-                    }}
-                  />
-                  <Button
-                    type={"max"}
-                    width={"64px"}
-                    height={"46px"}
-                    onClick={() => {
-                      setMaxPressed(true);
-                      setWithdrawAmount(
-                        (accountlockinfo.balance / Math.pow(10, 18)).toFixed(6)
-                      );
-                    }}
-                  >
-                    Max
-                  </Button>
-                </InputField>
-                <Button
-                  type={"primary"}
-                  width={sm ? "100%" : "143px"}
-                  height={"50px"}
-                  disabled={
-                    pending ||
-                    !Number(accountlockinfo.balance) ||
-                    !Number(withdrawAmount)
-                  }
-                  onClick={() => onWithdraw()}
-                >
-                  WITHDRAW
-                </Button>
-              </InputPanel>
-            </Box>
-            {true || Number(accountlockinfo.balance) ? (
-              <Button
-                type={"secondary"}
-                width={"100%"}
-                height={"50px"}
-                disabled={pending || !Number(accountlockinfo.balance)}
-                onClick={() => onHarvestReward()}
-              >
-                CLAIM REWARDS
-              </Button>
-            ) : (
-              ""
-            )}
-          </Panel>
-          <ColumnLayout flex={"1 0 0"} width={"100%"}>
-            <Panel>
-              <Box fontSize={"20px"} color={"#fff"} fontWeight={"600"}>
-                Total $TWC Staked By All Holders
-              </Box>
-              <RowLayout
-                fontSize={"32px"}
-                fontWeight={"800"}
-                display={"flex"}
-                justifyContent={"flex-start"}
-              >
-                <LogoSVG width={"30px"} height={"30px"} mr={"10px"}></LogoSVG>
-                {!lockinfo ? (
-                  "0.0000000000"
-                ) : lockinfo.totalStaked !== undefined ? (
-                  (lockinfo.totalStaked / Math.pow(10, 18)).toFixed(6)
-                ) : (
-                  <Skeleton
-                    variant={"text"}
-                    width={"100px"}
-                    style={{ transform: "unset" }}
-                  />
-                )}
-              </RowLayout>
-              <Box fontSize={"12px"} color={"#CCC"}>
-                {!lockinfo ? (
-                  "USDT Value: $0.0000000000"
-                ) : lockinfo.totalStaked !== undefined ? (
-                  `USDT Value: $${(
-                    (lockinfo.totalStaked * price) /
-                    Math.pow(10, 18)
-                  ).toFixed(6)}`
-                ) : (
-                  <Skeleton
-                    variant={"text"}
-                    width={"80px"}
-                    style={{ transform: "unset" }}
-                  />
-                )}
-              </Box>
-            </Panel>
-            <Panel color={"#EEE"}>
-              <RowLayout justifyContent={"space-between"}>
-                <Box fontSize={"20px"}>$TWC</Box>
-                <Box fontSize={"15px"}>
-                  <a href="https://testnet.bscscan.com/address/0x959719Be58e4B18d4C650C0D265cE08846501C91">
-                    <RowLayout>
-                      View on Etherscan
-                      <FaExternalLinkAlt></FaExternalLinkAlt>
-                    </RowLayout>
-                  </a>
-                </Box>
-              </RowLayout>
-              <RowLayout justifyContent={"space-between"}>
-                <Box fontSize={"20px"}>Staking</Box>
-                <Box fontSize={"15px"}>
-                  <a href="https://testnet.bscscan.com/address/0xf3F0cB29eCDAE58C9975f537400ed08fD0e0C0fC">
-                    <RowLayout>
-                      View on Etherscan
-                      <FaExternalLinkAlt></FaExternalLinkAlt>
-                    </RowLayout>
-                  </a>
-                </Box>
-              </RowLayout>
-              <Box fontSize={"20px"} fontWeight={"800"}>
-                <RowLayout justifyContent={"space-between"}>
-                  <Box>$TWC APR</Box>
-                  <Box
-                    fontSize={"18px"}
-                    color={"#00FF31"}
-                    // border={"1px #eaaf0e solid"}
-                    // borderBottom={"0"}
-                    borderRadius={"10px"}
-                    boxShadow={
-                      "#eaaf0e 0px -1px 0px, #eaaf0e -1px -2px 0px, #eaaf0e 1px -2px 0px"
-                    }
-                    padding={"4px"}
-                  >
-                    {!lockinfo ? (
-                      "0.00%"
-                    ) : lockinfo.totalStaked !== undefined ? (
-                      (lockinfo.interest / Math.pow(10, 16)).toFixed(2) + "%"
-                    ) : (
-                      <Skeleton
-                        variant={"text"}
-                        width={"70px"}
-                        style={{ transform: "unset" }}
-                      />
-                    )}
-                  </Box>
-                </RowLayout>
-              </Box>
-            </Panel>
-          </ColumnLayout>
-        </RowLayout> */}
       </Mainpage>
     </StyledContainer>
   );
@@ -1466,7 +1415,7 @@ const Mainpage = styled(Box)`
     width: 100%;
     max-width: 1150px;
     justify-content: space-between;
-    @media screen and (max-width: 1250px) {
+    @media screen and (max-width: 1150px) {
       flex-direction: column;
       align-items: center;
       > div:nth-child(1) {
@@ -1523,21 +1472,61 @@ const Panel = styled(Box)`
     /* animation-play-state: paused; */
   }
   transition: all 0.2s ease-out;
-  /* animation: pulse 3s infinite;
+`;
 
-@keyframes pulse {
-  0% {
-    transform: translate(0px, 0px);
+const WinText = styled.span`
+  margin: 100px 0;
+  background: linear-gradient(
+    80deg,
+    #4c249f -50%,
+    #17e1fd 20%,
+    #ff77e1 40%,
+    #0047ff 70%,
+    #77ffb0 90%,
+    #fff177
+  );
+  -webkit-background-clip: text;
+  background-size: 200% auto;
+  animation: cycleBackgroundPos 2s steps(100) infinite;
+  -webkit-text-fill-color: transparent;
+  font-size: 44px;
+  @media screen and (max-width: 950px) {
+    font-size: 36px;
   }
+  @media screen and (max-width: 550px) {
+    font-size: 30px;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 24px;
+  }
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  @keyframes cycleBackgroundPos {
+    0% {
+      background-position: 0 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }
+`;
 
-  50% {
-    transform: translate(0px, -5px);
+const Glow = styled(Box)`
+  animation: glow 0.5s ease-in-out infinite alternate;
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #e60073, 0 0 8px #e60073,
+        0 0 10px #e60073, 0 0 12px #e60073, 0 0 14px #e60073;
+    }
+    to {
+      text-shadow: 0 0 4px #fff, 0 0 6px #ff4da6, 0 0 8px #ff4da6,
+        0 0 10px #ff4da6, 0 0 12px #ff4da6, 0 0 14px #ff4da6, 0 0 16px #ff4da6;
+    }
   }
-
-  100% {
-    transform: translate(0px, 0px);
-  }
-} */
 `;
 
 export default Home;
