@@ -272,6 +272,7 @@ const Home = ({ setNotification }) => {
     }
     setPending(false);
     setBetIndex(-1);
+    setChoice(0);
   };
 
   const onWithdraw = async () => {
