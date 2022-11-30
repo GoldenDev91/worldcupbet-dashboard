@@ -357,7 +357,7 @@ const Home = ({ setNotification }) => {
         width={"100%"}
       >
         {Object.keys(lockinfo).length === 0
-          ? [...Array(64).keys()].map((skelIdx) => (
+          ? [...Array(32).keys()].map((skelIdx) => (
               <RowLayout
                 key={"skel" + skelIdx}
                 justifyContent={"center !important"}
