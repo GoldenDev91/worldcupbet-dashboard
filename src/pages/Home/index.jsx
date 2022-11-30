@@ -319,6 +319,7 @@ const Home = ({ setNotification }) => {
   const mw950 = useMediaQuery("(max-width : 950px)");
   const mw650 = useMediaQuery("(max-width : 650px)");
   const mw1150 = useMediaQuery("(max-width : 1150px)");
+  const mw2000 = useMediaQuery("(max-width : 2000px)");
 
   return (
     <StyledContainer>
@@ -341,18 +342,20 @@ const Home = ({ setNotification }) => {
       <Box height={"100px"}></Box>
       <Mainpage
         fontFamily={"Montserrat,sans-serif"}
-        gap={"20px"}
         position={"relative"}
         display={"flex"}
         flexWrap={"wrap"}
       >
-        {Object.keys(lockinfo).length === 0
+        {Object.keys(lockinfo).length === 0 || true
           ? [0, 1, 2, 3, 4, 5].map((skelIdx) => (
-              <RowLayout width={"40%"} gap={"20px"} key={"skel" + skelIdx}>
+              <RowLayout
+                key={"skel" + skelIdx}
+                justifyContent={"center !important"}
+              >
                 <Panel flex={"1 0 0"}>
                   <RowLayout
                     justifyContent={"space-between"}
-                    fontSize={28 - mw1150 * 16 + "px"}
+                    fontSize={28 - mw2000 * 16 + "px"}
                   >
                     <Box color={"#CCC"} mt={"-20px"}>
                       #{skelIdx + 1}
@@ -360,21 +363,21 @@ const Home = ({ setNotification }) => {
                     <Box color={"#CCC"} mt={"-20px"}>
                       <Skeleton
                         variant={"text"}
-                        width={200 - mw1150 * 100 + "px"}
+                        width={200 - mw2000 * 100 + "px"}
                         style={{ transform: "unset" }}
                       />
                     </Box>
                   </RowLayout>
-                  <RowLayout my={40 - mw1150 * 20 + "px"}>
+                  <RowLayout my={40 - mw2000 * 20 + "px"}>
                     <Box
-                      fontSize={40 - mw1150 * 24 + "px"}
+                      fontSize={40 - mw2000 * 24 + "px"}
                       fontWeight={"800"}
                       color={"#CCC"}
                       mt={"-20px"}
                     >
                       <Skeleton
                         variant={"text"}
-                        width={500 - mw1150 * 250 + "px"}
+                        width={500 - mw2000 * 250 + "px"}
                         style={{ transform: "unset" }}
                       />
                     </Box>
@@ -390,18 +393,18 @@ const Home = ({ setNotification }) => {
                       <ColumnLayout>
                         <Skeleton
                           variant={"text"}
-                          width={120 - mw1150 * 60 + "px"}
-                          height={72 - mw1150 * 36 + "px"}
+                          width={120 - mw2000 * 60 + "px"}
+                          height={72 - mw2000 * 36 + "px"}
                           style={{ transform: "unset" }}
                         />
-                        <Box fontSize={40 - mw1150 * 20 + "px"}>
+                        <Box fontSize={40 - mw2000 * 20 + "px"}>
                           <Skeleton
                             variant={"text"}
                             width={"100px"}
                             style={{ transform: "unset" }}
                           />
                         </Box>
-                        <Box fontSize={24 - mw1150 * 12 + "px"} color={"#CCC"}>
+                        <Box fontSize={24 - mw2000 * 12 + "px"} color={"#CCC"}>
                           <Skeleton
                             variant={"text"}
                             width={"60px"}
@@ -409,26 +412,26 @@ const Home = ({ setNotification }) => {
                           />
                         </Box>
                       </ColumnLayout>
-                      <ColumnLayout mx={40 - mw1150 * 20 + "px"}>
-                        <Box fontSize={40 - mw1150 * 20 + "px"} color={"#FFF"}>
+                      <ColumnLayout mx={40 - mw2000 * 20 + "px"}>
+                        <Box fontSize={40 - mw2000 * 20 + "px"} color={"#FFF"}>
                           VS
                         </Box>
                       </ColumnLayout>
                       <ColumnLayout>
                         <Skeleton
                           variant={"text"}
-                          width={120 - mw1150 * 60 + "px"}
-                          height={72 - mw1150 * 36 + "px"}
+                          width={120 - mw2000 * 60 + "px"}
+                          height={72 - mw2000 * 36 + "px"}
                           style={{ transform: "unset" }}
                         />
-                        <Box fontSize={40 - mw1150 * 20 + "px"}>
+                        <Box fontSize={40 - mw2000 * 20 + "px"}>
                           <Skeleton
                             variant={"text"}
                             width={"100px"}
                             style={{ transform: "unset" }}
                           />
                         </Box>
-                        <Box fontSize={24 - mw1150 * 12 + "px"} color={"#FFF"}>
+                        <Box fontSize={24 - mw2000 * 12 + "px"} color={"#FFF"}>
                           <Skeleton
                             variant={"text"}
                             width={"60px"}
@@ -439,7 +442,7 @@ const Home = ({ setNotification }) => {
                     </RowLayout>
                     <ColumnLayout
                       alignItems={"flex-start"}
-                      fontSize={24 - mw1150 * 8 + "px"}
+                      fontSize={24 - mw2000 * 8 + "px"}
                     >
                       <RowLayout>
                         <Box color={"#AAA"}>
@@ -465,7 +468,159 @@ const Home = ({ setNotification }) => {
                         </Box>
                         <Box ml={"10px"}>{": 0.00%"}</Box>
                       </RowLayout>
-                      <RowLayout my={20 - mw1150 * 10 + "px"}>
+                      <RowLayout my={20 - mw2000 * 10 + "px"}>
+                        <Box color={"#AAA"}>Time until match:</Box>
+                        <Box
+                          ml={"10px"}
+                          // width={"180px"}
+                          fontFamily={
+                            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;"
+                          }
+                          fontWeight={"200"}
+                        >
+                          {"00 Day(s) 00:00:00"}
+                        </Box>
+                      </RowLayout>
+                      <RowLayout>
+                        <Box color={"#AAA"}>Total bet:</Box>
+                        <Box ml={"10px"} width={"140px"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"100px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                      </RowLayout>
+                      <RowLayout>
+                        <Box color={"#AAA"}>Total award:</Box>
+                        <Box ml={"10px"} width={"140px"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"100px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                      </RowLayout>
+                    </ColumnLayout>
+                  </RowLayout>
+                </Panel>
+                <Panel flex={"1 0 0"}>
+                  <RowLayout
+                    justifyContent={"space-between"}
+                    fontSize={28 - mw2000 * 16 + "px"}
+                  >
+                    <Box color={"#CCC"} mt={"-20px"}>
+                      #{skelIdx + 1}
+                    </Box>
+                    <Box color={"#CCC"} mt={"-20px"}>
+                      <Skeleton
+                        variant={"text"}
+                        width={200 - mw2000 * 100 + "px"}
+                        style={{ transform: "unset" }}
+                      />
+                    </Box>
+                  </RowLayout>
+                  <RowLayout my={40 - mw2000 * 20 + "px"}>
+                    <Box
+                      fontSize={40 - mw2000 * 24 + "px"}
+                      fontWeight={"800"}
+                      color={"#CCC"}
+                      mt={"-20px"}
+                    >
+                      <Skeleton
+                        variant={"text"}
+                        width={500 - mw2000 * 250 + "px"}
+                        style={{ transform: "unset" }}
+                      />
+                    </Box>
+                  </RowLayout>
+                  <RowLayout
+                    justifyContent={"space-around"}
+                    flexDirection={mw650 ? "column" : "row"}
+                  >
+                    <RowLayout
+                      mr={mw650 ? "" : "20px"}
+                      mb={mw650 ? "20px" : ""}
+                    >
+                      <ColumnLayout>
+                        <Skeleton
+                          variant={"text"}
+                          width={120 - mw2000 * 60 + "px"}
+                          height={72 - mw2000 * 36 + "px"}
+                          style={{ transform: "unset" }}
+                        />
+                        <Box fontSize={40 - mw2000 * 20 + "px"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"100px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                        <Box fontSize={24 - mw2000 * 12 + "px"} color={"#CCC"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"60px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                      </ColumnLayout>
+                      <ColumnLayout mx={40 - mw2000 * 20 + "px"}>
+                        <Box fontSize={40 - mw2000 * 20 + "px"} color={"#FFF"}>
+                          VS
+                        </Box>
+                      </ColumnLayout>
+                      <ColumnLayout>
+                        <Skeleton
+                          variant={"text"}
+                          width={120 - mw2000 * 60 + "px"}
+                          height={72 - mw2000 * 36 + "px"}
+                          style={{ transform: "unset" }}
+                        />
+                        <Box fontSize={40 - mw2000 * 20 + "px"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"100px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                        <Box fontSize={24 - mw2000 * 12 + "px"} color={"#FFF"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"60px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                      </ColumnLayout>
+                    </RowLayout>
+                    <ColumnLayout
+                      alignItems={"flex-start"}
+                      fontSize={24 - mw2000 * 8 + "px"}
+                    >
+                      <RowLayout>
+                        <Box color={"#AAA"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"100px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                        <Box ml={"10px"}>{": 0.00%"}</Box>
+                      </RowLayout>
+                      <RowLayout>
+                        <Box color={"#AAA"}>Draw:</Box>
+                        <Box ml={"10px"}>0.00%</Box>
+                      </RowLayout>
+                      <RowLayout>
+                        <Box color={"#AAA"}>
+                          <Skeleton
+                            variant={"text"}
+                            width={"100px"}
+                            style={{ transform: "unset" }}
+                          />
+                        </Box>
+                        <Box ml={"10px"}>{": 0.00%"}</Box>
+                      </RowLayout>
+                      <RowLayout my={20 - mw2000 * 10 + "px"}>
                         <Box color={"#AAA"}>Time until match:</Box>
                         <Box
                           ml={"10px"}
@@ -508,7 +663,7 @@ const Home = ({ setNotification }) => {
                 <Panel flex={"1 0 0"}>
                   <RowLayout
                     justifyContent={"space-between"}
-                    fontSize={28 - mw1150 * 16 + "px"}
+                    fontSize={28 - mw2000 * 16 + "px"}
                   >
                     <Box color={"#CCC"} mt={"-20px"}>
                       #{matchIndex + 1}
@@ -517,9 +672,9 @@ const Home = ({ setNotification }) => {
                       {new Date(match.time * 1000).toDateString()}
                     </Box>
                   </RowLayout>
-                  <RowLayout my={40 - mw1150 * 20 + "px"}>
+                  <RowLayout my={40 - mw2000 * 20 + "px"}>
                     <Box
-                      fontSize={40 - mw1150 * 24 + "px"}
+                      fontSize={40 - mw2000 * 24 + "px"}
                       fontWeight={"800"}
                       color={"#CCC"}
                       mt={"-20px"}
@@ -551,7 +706,7 @@ const Home = ({ setNotification }) => {
                         ></Flag>
                         <Box></Box>
                         <Box
-                          fontSize={40 - mw1150 * 20 + "px"}
+                          fontSize={40 - mw2000 * 20 + "px"}
                           color={
                             lockinfo.matchInfos[matchIndex].result == 1
                               ? "#4ADE80"
@@ -561,15 +716,15 @@ const Home = ({ setNotification }) => {
                         >
                           {match.team1}
                         </Box>
-                        <Box fontSize={24 - mw1150 * 12 + "px"} color={"#CCC"}>
+                        <Box fontSize={24 - mw2000 * 12 + "px"} color={"#CCC"}>
                           {`Rank: ${teamList[match.team1]?.rank}`}
                         </Box>
                       </ColumnLayout>
                       <ColumnLayout
-                        mx={40 - mw1150 * 20 + "px"}
+                        mx={40 - mw2000 * 20 + "px"}
                         position={"relative"}
                       >
-                        <Box fontSize={40 - mw1150 * 20 + "px"} color={"#FFF"}>
+                        <Box fontSize={40 - mw2000 * 20 + "px"} color={"#FFF"}>
                           VS
                         </Box>
                         {/* <Box
@@ -583,7 +738,7 @@ const Home = ({ setNotification }) => {
                           height={"80px"}
                         ></Box> */}
                         <Box
-                          fontSize={24 - mw1150 * 8 + "px"}
+                          fontSize={24 - mw2000 * 8 + "px"}
                           color={"#4ADE80"}
                           mt={"10px"}
                           boxShadow={
@@ -612,7 +767,7 @@ const Home = ({ setNotification }) => {
                           }}
                         ></Flag>
                         <Box
-                          fontSize={40 - mw1150 * 20 + "px"}
+                          fontSize={40 - mw2000 * 20 + "px"}
                           color={
                             lockinfo.matchInfos[matchIndex].result == 2
                               ? "#4ADE80"
@@ -622,14 +777,14 @@ const Home = ({ setNotification }) => {
                         >
                           {match.team2}
                         </Box>
-                        <Box fontSize={24 - mw1150 * 12 + "px"} color={"#FFF"}>
+                        <Box fontSize={24 - mw2000 * 12 + "px"} color={"#FFF"}>
                           {`Rank: ${teamList[match.team2]?.rank}`}
                         </Box>
                       </ColumnLayout>
                     </RowLayout>
                     <ColumnLayout
                       alignItems={"flex-start"}
-                      fontSize={24 - mw1150 * 8 + "px"}
+                      fontSize={24 - mw2000 * 8 + "px"}
                     >
                       <RowLayout>
                         <Box color={"#AAA"}>{match.team1}:</Box>
@@ -661,7 +816,7 @@ const Home = ({ setNotification }) => {
                           %
                         </Box>
                       </RowLayout>
-                      <RowLayout my={20 - mw1150 * 10 + "px"}>
+                      <RowLayout my={20 - mw2000 * 10 + "px"}>
                         <Box color={"#AAA"}>Time until match:</Box>
                         <Box
                           ml={"10px"}
@@ -757,7 +912,7 @@ const Home = ({ setNotification }) => {
                           disabled={pending || match.time < nowInSeconds}
                           position={"relative"}
                           transform={"width 0.5s ease-out"}
-                          fontSize={24 - mw1150 * 8 + "px"}
+                          fontSize={24 - mw2000 * 8 + "px"}
                           style={{
                             whiteSpace: "nowrap",
                             overflow: "hidden",
@@ -799,8 +954,8 @@ const Home = ({ setNotification }) => {
                                 cursor: "pointer",
                                 transition: "all 0.5s ease-out",
                               }}
-                              width={80 - mw1150 * 40 + "px"}
-                              height={48 - mw1150 * 24 + "px"}
+                              width={80 - mw2000 * 40 + "px"}
+                              height={48 - mw2000 * 24 + "px"}
                               boxShadow={
                                 choice === 1
                                   ? "0px 1px 3px white, 0px -1px 3px black"
@@ -819,8 +974,8 @@ const Home = ({ setNotification }) => {
                                 transition: "all 0.5s ease-out",
                               }}
                               backgroundColor={"#CCC"}
-                              width={80 - mw1150 * 40 + "px"}
-                              height={48 - mw1150 * 24 + "px"}
+                              width={80 - mw2000 * 40 + "px"}
+                              height={48 - mw2000 * 24 + "px"}
                               display={"flex"}
                               justifyContent={"center"}
                               boxShadow={
@@ -831,7 +986,7 @@ const Home = ({ setNotification }) => {
                               onClick={() => {
                                 setChoice(3);
                               }}
-                              fontSize={28 - mw1150 * 14 + "px"}
+                              fontSize={28 - mw2000 * 14 + "px"}
                               color={"#333"}
                             >
                               Draw
@@ -846,8 +1001,8 @@ const Home = ({ setNotification }) => {
                                 cursor: "pointer",
                                 transition: "all 0.5s ease-out",
                               }}
-                              width={80 - mw1150 * 40 + "px"}
-                              height={48 - mw1150 * 24 + "px"}
+                              width={80 - mw2000 * 40 + "px"}
+                              height={48 - mw2000 * 24 + "px"}
                               boxShadow={
                                 choice === 2
                                   ? "0px 1px 3px white, 0px -1px 3px black"
@@ -920,7 +1075,7 @@ const Home = ({ setNotification }) => {
                           type={"secondary"}
                           width={"100%"}
                           height={"50px"}
-                          fontSize={24 - mw1150 * 8 + "px"}
+                          fontSize={24 - mw2000 * 8 + "px"}
                           disabled={
                             pending ||
                             lockinfo.matchInfos[matchIndex].result -
@@ -1447,9 +1602,9 @@ const Mainpage = styled(Box)`
   > div {
     display: flex;
     width: 100%;
-    max-width: 1130px;
+    max-width: 1150px;
     justify-content: space-between;
-    @media screen and (max-width: 1150px) {
+    @media screen and (max-width: 1250px) {
       flex-direction: column;
       align-items: center;
       > div:nth-child(1) {
