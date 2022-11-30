@@ -487,7 +487,7 @@ const Home = ({ setNotification }) => {
             <RowLayout
               justifyContent={"space-between"}
               mt={"20px"}
-              mb={account ? "20px" : ""}
+              mb={account ? "20px" : "0"}
             >
               <Box fontSize={"20px"}>Current Balance</Box>
               <Box fontSize={"15px"}>
