@@ -145,6 +145,7 @@ const Home = ({ setNotification }) => {
   // let timer = 0;
 
   useEffect(() => {
+    console.log("accountlockinfo :>> ", accountlockinfo);
     setTimeout(() => {
       setNowInSeconds(Math.round(Date.now() / 1000));
     }, 300);
@@ -422,25 +423,10 @@ const Home = ({ setNotification }) => {
 
             <RowLayout justifyContent={"space-between"}>
               <Box fontSize={"20px"}>Bets</Box>
-              <Box fontSize={"15px"}>
-                {accountlockinfo.totalBetCount !== undefined ? (
-                  Number(accountlockinfo.totalBetCount.toString())
-                ) : (
-                  <Skeleton
-                    variant={"text"}
-                    width={"100px"}
-                    style={{ transform: "unset" }}
-                  />
-                )}
-              </Box>
-            </RowLayout>
-            <RowLayout justifyContent={"space-between"}>
-              <Box fontSize={"20px"}>Total Bet Amount</Box>
-              <Box fontSize={"15px"}>
-                <RowLayout>
-                  <Box mr={"10px"}>{"$WCB"}</Box>
-                  {accountlockinfo.totalAward !== undefined ? (
-                    (accountlockinfo.totalAward / Math.pow(10, 18)).toFixed(6)
+              {account ? (
+                <Box fontSize={"15px"}>
+                  {accountlockinfo.totalBetCount !== undefined ? (
+                    Number(accountlockinfo.totalBetCount.toString())
                   ) : (
                     <Skeleton
                       variant={"text"}
@@ -448,42 +434,83 @@ const Home = ({ setNotification }) => {
                       style={{ transform: "unset" }}
                     />
                   )}
-                </RowLayout>
+                </Box>
+              ) : (
+                "NaN"
+              )}
+            </RowLayout>
+            <RowLayout justifyContent={"space-between"}>
+              <Box fontSize={"20px"}>Total Bet Amount</Box>
+              <Box fontSize={"15px"}>
+                {account ? (
+                  <RowLayout>
+                    <Box mr={"10px"}>{"$WCB"}</Box>
+                    {accountlockinfo.totalAward !== undefined ? (
+                      (accountlockinfo.totalAward / Math.pow(10, 18)).toFixed(6)
+                    ) : (
+                      <Skeleton
+                        variant={"text"}
+                        width={"100px"}
+                        style={{ transform: "unset" }}
+                      />
+                    )}
+                  </RowLayout>
+                ) : (
+                  "NaN"
+                )}
               </Box>
             </RowLayout>
             <RowLayout justifyContent={"space-between"}>
               <Box fontSize={"20px"}>Total Award Amount</Box>
               <Box fontSize={"15px"}>
-                <RowLayout>
-                  <Box mr={"10px"}>{"$WCB"}</Box>
-                  {accountlockinfo.totalBet !== undefined ? (
-                    (accountlockinfo.totalBet / Math.pow(10, 18)).toFixed(6)
-                  ) : (
-                    <Skeleton
-                      variant={"text"}
-                      width={"100px"}
-                      style={{ transform: "unset" }}
-                    />
-                  )}
-                </RowLayout>
+                {account ? (
+                  <RowLayout>
+                    <Box mr={"10px"}>{"$WCB"}</Box>
+                    {accountlockinfo.totalBet !== undefined ? (
+                      (accountlockinfo.totalBet / Math.pow(10, 18)).toFixed(6)
+                    ) : (
+                      <Skeleton
+                        variant={"text"}
+                        width={"100px"}
+                        style={{ transform: "unset" }}
+                      />
+                    )}
+                  </RowLayout>
+                ) : (
+                  "NaN"
+                )}
               </Box>
             </RowLayout>
-            
-            <RowLayout justifyContent={"space-between"} mt={'20px'}>
+
+            <RowLayout justifyContent={"space-between"} mt={"20px"}>
               <Box fontSize={"20px"}>Current Balance</Box>
               <Box fontSize={"15px"}>
-                <RowLayout>
-                  <Box mr={"10px"}>{"$WCB"}</Box>
-                  {balance !== undefined ? (
-                    (balance / Math.pow(10, 18)).toFixed(6)
-                  ) : (
-                    <Skeleton
-                      variant={"text"}
-                      width={"100px"}
-                      style={{ transform: "unset" }}
-                    />
-                  )}
-                </RowLayout>
+                {account ? (
+                  <RowLayout>
+                    <Box mr={"10px"}>{"$WCB"}</Box>
+                    {balance !== undefined ? (
+                      (balance / Math.pow(10, 18)).toFixed(6)
+                    ) : (
+                      <Skeleton
+                        variant={"text"}
+                        width={"100px"}
+                        style={{ transform: "unset" }}
+                      />
+                    )}
+                  </RowLayout>
+                ) : (
+                  <Button
+                    type={"primary"}
+                    width={"120px"}
+                    height={"50px"}
+                    disabled={pending}
+                    onClick={() => {
+                      !account ? onConnect() : onApproveContract();
+                    }}
+                  >
+                    {!account ? "Connect" : "Approve"}
+                  </Button>
+                )}
               </Box>
             </RowLayout>
           </Panel>
