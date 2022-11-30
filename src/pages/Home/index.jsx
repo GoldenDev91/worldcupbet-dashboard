@@ -765,7 +765,7 @@ const Home = ({ setNotification }) => {
                       #{matchIndex + 1}
                     </Box>
                     <Box color={"#CCC"} mt={"-20px"}>
-                      {new Date(match.time * 1000).toLocaleString()}
+                      {new Date(match?.time * 1000).toLocaleString()}
                     </Box>
                   </RowLayout>
                   <RowLayout my={40 - mw2000 * 20 + "px"}>
@@ -775,7 +775,7 @@ const Home = ({ setNotification }) => {
                       color={"#CCC"}
                       mt={"-20px"}
                     >
-                      {match.level}
+                      {match?.level}
                     </Box>
                   </RowLayout>
                   <RowLayout
@@ -788,7 +788,7 @@ const Home = ({ setNotification }) => {
                     >
                       <ColumnLayout
                         boxShadow={
-                          lockinfo.matchInfos[matchIndex].result == 1
+                          lockinfo.matchInfos[matchIndex]?.result == 1
                             ? "0 0 5px 1px #4ADE80"
                             : ""
                         }
@@ -796,7 +796,7 @@ const Home = ({ setNotification }) => {
                         <Flag
                           style={{
                             backgroundImage: `url('${
-                              teamList[match.team1]?.flag
+                              teamList[match?.team1]?.flag
                             }')`,
                           }}
                         ></Flag>
@@ -804,16 +804,16 @@ const Home = ({ setNotification }) => {
                         <Box
                           fontSize={40 - mw2000 * 20 + "px"}
                           color={
-                            lockinfo.matchInfos[matchIndex].result == 1
+                            lockinfo.matchInfos[matchIndex]?.result == 1
                               ? "#4ADE80"
                               : "#FFF"
                           }
                           whiteSpace={"nowrap"}
                         >
-                          {match.team1}
+                          {match?.team1}
                         </Box>
                         <Box fontSize={24 - mw2000 * 12 + "px"} color={"#CCC"}>
-                          {`Rank: ${teamList[match.team1]?.rank}`}
+                          {`Rank: ${teamList[match?.team1]?.rank}`}
                         </Box>
                       </ColumnLayout>
                       <ColumnLayout
@@ -838,19 +838,19 @@ const Home = ({ setNotification }) => {
                           color={"#4ADE80"}
                           mt={"10px"}
                           boxShadow={
-                            lockinfo.matchInfos[matchIndex].result == 3
+                            lockinfo.matchInfos[matchIndex]?.result == 3
                               ? "0 0 5px 1px #4ADE80"
                               : ""
                           }
                         >
-                          {lockinfo.matchInfos[matchIndex].result == 3
+                          {lockinfo.matchInfos[matchIndex]?.result == 3
                             ? "DRAW"
                             : ""}
                         </Box>
                       </ColumnLayout>
                       <ColumnLayout
                         boxShadow={
-                          lockinfo.matchInfos[matchIndex].result == 2
+                          lockinfo.matchInfos[matchIndex]?.result == 2
                             ? "0 0 5px 1px #4ADE80"
                             : ""
                         }
@@ -858,23 +858,23 @@ const Home = ({ setNotification }) => {
                         <Flag
                           style={{
                             backgroundImage: `url('${
-                              teamList[match.team2]?.flag
+                              teamList[match?.team2]?.flag
                             }')`,
                           }}
                         ></Flag>
                         <Box
                           fontSize={40 - mw2000 * 20 + "px"}
                           color={
-                            lockinfo.matchInfos[matchIndex].result == 2
+                            lockinfo.matchInfos[matchIndex]?.result == 2
                               ? "#4ADE80"
                               : "#FFF"
                           }
                           whiteSpace={"nowrap"}
                         >
-                          {match.team2}
+                          {match?.team2}
                         </Box>
                         <Box fontSize={24 - mw2000 * 12 + "px"} color={"#FFF"}>
-                          {`Rank: ${teamList[match.team2]?.rank}`}
+                          {`Rank: ${teamList[match?.team2]?.rank}`}
                         </Box>
                       </ColumnLayout>
                     </RowLayout>
@@ -883,10 +883,10 @@ const Home = ({ setNotification }) => {
                       fontSize={24 - mw2000 * 8 + "px"}
                     >
                       <RowLayout>
-                        <Box color={"#AAA"}>{match.team1}:</Box>
+                        <Box color={"#AAA"}>{match?.team1}:</Box>
                         <Box ml={"10px"}>
                           {(
-                            lockinfo.matchInfos[matchIndex].team1AwardRate /
+                            lockinfo.matchInfos[matchIndex]?.team1AwardRate /
                             Math.pow(10, 16)
                           ).toFixed(2)}
                           %
@@ -896,17 +896,17 @@ const Home = ({ setNotification }) => {
                         <Box color={"#AAA"}>Draw:</Box>
                         <Box ml={"10px"}>
                           {(
-                            lockinfo.matchInfos[matchIndex].drawAwardRate /
+                            lockinfo.matchInfos[matchIndex]?.drawAwardRate /
                             Math.pow(10, 16)
                           ).toFixed(2)}
                           %
                         </Box>
                       </RowLayout>
                       <RowLayout>
-                        <Box color={"#AAA"}>{match.team2}:</Box>
+                        <Box color={"#AAA"}>{match?.team2}:</Box>
                         <Box ml={"10px"}>
                           {(
-                            lockinfo.matchInfos[matchIndex].team2AwardRate /
+                            lockinfo.matchInfos[matchIndex]?.team2AwardRate /
                             Math.pow(10, 16)
                           ).toFixed(2)}
                           %
@@ -922,20 +922,22 @@ const Home = ({ setNotification }) => {
                           }
                           fontWeight={"200"}
                         >
-                          {nowInSeconds > match.time
+                          {nowInSeconds > match?.time
                             ? "00 Day(s) 00:00:00"
-                            : `${Math.floor((match.time - nowInSeconds) / 86400)
+                            : `${Math.floor(
+                                (match?.time - nowInSeconds) / 86400
+                              )
                                 .toString()
                                 .padStart(2, "0")} Day(s) ${Math.floor(
-                                ((match.time - nowInSeconds) % 86400) / 3600
+                                ((match?.time - nowInSeconds) % 86400) / 3600
                               )
                                 .toString()
                                 .padStart(2, "0")}:${Math.floor(
-                                ((match.time - nowInSeconds) % 3600) / 60
+                                ((match?.time - nowInSeconds) % 3600) / 60
                               )
                                 .toString()
                                 .padStart(2, "0")}:${Math.floor(
-                                (match.time - nowInSeconds) % 60
+                                (match?.time - nowInSeconds) % 60
                               )
                                 .toString()
                                 .padStart(2, "0")}`}
@@ -945,7 +947,7 @@ const Home = ({ setNotification }) => {
                         <Box color={"#AAA"}>Total bet:</Box>
                         <Box ml={"10px"} width={"140px"}>
                           {(
-                            lockinfo.matchInfos[matchIndex].betAmount /
+                            lockinfo.matchInfos[matchIndex]?.betAmount /
                             Math.pow(10, 18)
                           ).toFixed(6)}
                         </Box>
@@ -954,7 +956,7 @@ const Home = ({ setNotification }) => {
                         <Box color={"#AAA"}>Total award:</Box>
                         <Box ml={"10px"} width={"140px"}>
                           {(
-                            lockinfo.matchInfos[matchIndex].awardAmount /
+                            lockinfo.matchInfos[matchIndex]?.awardAmount /
                             Math.pow(10, 18)
                           ).toFixed(6)}
                         </Box>
@@ -1005,7 +1007,7 @@ const Home = ({ setNotification }) => {
                           type={"secondary"}
                           width={betIndex === matchIndex ? "120px" : "100%"}
                           height={"50px"}
-                          disabled={pending || match.time < nowInSeconds}
+                          disabled={pending || match?.time < nowInSeconds}
                           position={"relative"}
                           transform={"width 0.5s ease-out"}
                           fontSize={24 - mw2000 * 8 + "px"}
@@ -1022,19 +1024,19 @@ const Home = ({ setNotification }) => {
                         >
                           {betIndex === matchIndex
                             ? "CANCEL"
-                            : accountlockinfo.betInfos[matchIndex].betAmount > 0
+                            : accountlockinfo.betInfos[matchIndex]?.betAmount > 0
                             ? `BET ${(
-                                accountlockinfo.betInfos[matchIndex].betAmount /
+                                accountlockinfo.betInfos[matchIndex]?.betAmount /
                                 Math.pow(10, 18)
                               ).toFixed(6)} $WCB TO ` +
-                              (accountlockinfo.betInfos[matchIndex].choice == 3
+                              (accountlockinfo.betInfos[matchIndex]?.choice == 3
                                 ? "DRAW"
                                 : (accountlockinfo.betInfos[matchIndex]
                                     .choice == 1
-                                    ? match.team1
-                                    : match.team2
+                                    ? match?.team1
+                                    : match?.team2
                                   ).toUpperCase())
-                            : match.time > nowInSeconds
+                            : match?.time > nowInSeconds
                             ? "PLACE BET"
                             : "FINISHED"}
                         </Button>
@@ -1043,7 +1045,7 @@ const Home = ({ setNotification }) => {
                             <Flag
                               style={{
                                 backgroundImage: `url('${
-                                  teamList[match.team1]?.flag
+                                  teamList[match?.team1]?.flag
                                 }')`,
                                 animation:
                                   choice === 1 ? "pulse 0.5s infinite" : "",
@@ -1090,7 +1092,7 @@ const Home = ({ setNotification }) => {
                             <Flag
                               style={{
                                 backgroundImage: `url('${
-                                  teamList[match.team2]?.flag
+                                  teamList[match?.team2]?.flag
                                 }')`,
                                 animation:
                                   choice === 2 ? "pulse 0.5s infinite" : "",
@@ -1166,7 +1168,7 @@ const Home = ({ setNotification }) => {
                           </InputPanel>
                         </ColumnLayout>
                       </Box>
-                      {accountlockinfo.betInfos[matchIndex].betAmount > 0 ? (
+                      {accountlockinfo.betInfos[matchIndex]?.betAmount > 0 ? (
                         <Button
                           type={"secondary"}
                           width={"100%"}
@@ -1174,16 +1176,16 @@ const Home = ({ setNotification }) => {
                           fontSize={24 - mw2000 * 8 + "px"}
                           disabled={
                             pending ||
-                            lockinfo.matchInfos[matchIndex].result -
-                              accountlockinfo.betInfos[matchIndex].choice !=
+                            lockinfo.matchInfos[matchIndex]?.result -
+                              accountlockinfo.betInfos[matchIndex]?.choice !=
                               0 ||
-                            accountlockinfo.betInfos[matchIndex].awardAmount > 0
+                            accountlockinfo.betInfos[matchIndex]?.awardAmount > 0
                           }
                           onClick={() => onClaim(matchIndex)}
                         >
-                          {lockinfo.matchInfos[matchIndex].result > 0 ? (
-                            lockinfo.matchInfos[matchIndex].result.eq(
-                              accountlockinfo.betInfos[matchIndex].choice
+                          {lockinfo.matchInfos[matchIndex]?.result > 0 ? (
+                            lockinfo.matchInfos[matchIndex]?.result.eq(
+                              accountlockinfo.betInfos[matchIndex]?.choice
                             ) ? (
                               <Box
                                 style={{
@@ -1599,7 +1601,7 @@ const Trophy = styled(Box)`
 const Ball = styled(Box)`
   background-image: url(/ball2022.png);
   background-position: center;
-  background-size:100%;
+  background-size: 100%;
   width: 100px;
   height: 100px;
   align-self: center;
