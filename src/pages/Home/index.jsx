@@ -271,6 +271,7 @@ const Home = ({ setNotification }) => {
       figureError(error, setNotification);
     }
     setPending(false);
+    setBetIndex(-1);
   };
 
   const onWithdraw = async () => {
@@ -1007,7 +1008,11 @@ const Home = ({ setNotification }) => {
                           type={"secondary"}
                           width={betIndex === matchIndex ? "120px" : "100%"}
                           height={"50px"}
-                          disabled={pending || match?.time < nowInSeconds}
+                          disabled={
+                            pending ||
+                            match?.time < nowInSeconds ||
+                            accountlockinfo.betInfos[matchIndex]?.betAmount > 0
+                          }
                           position={"relative"}
                           transform={"width 0.5s ease-out"}
                           fontSize={24 - mw2000 * 8 + "px"}
