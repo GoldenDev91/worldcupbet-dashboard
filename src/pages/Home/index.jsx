@@ -765,7 +765,7 @@ const Home = ({ setNotification }) => {
                       #{matchIndex + 1}
                     </Box>
                     <Box color={"#CCC"} mt={"-20px"}>
-                      {new Date(match.time * 1000).toDateString()}
+                      {new Date(match.time * 1000).toLocaleString()}
                     </Box>
                   </RowLayout>
                   <RowLayout my={40 - mw2000 * 20 + "px"}>
