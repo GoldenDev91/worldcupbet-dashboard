@@ -145,7 +145,6 @@ const Home = ({ setNotification }) => {
   // let timer = 0;
 
   useEffect(() => {
-    console.log("accountlockinfo :>> ", accountlockinfo);
     setTimeout(() => {
       setNowInSeconds(Math.round(Date.now() / 1000));
     }, 300);
