@@ -12,7 +12,7 @@ import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { EnvHelper } from "../helpers/Environment";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-import { WORKING_NETWORK_ID } from './../abis/address';
+import { WORKING_NETWORK_ID } from "./../abis/address";
 
 /**
  * kept as function to mimic `getMainnetURI()`
@@ -162,6 +162,7 @@ export const Web3ContextProvider = ({ children }) => {
    */
   const _checkNetwork = (otherChainID) => {
     console.warn("You are switching networks", EnvHelper.getOtherChainID());
+    console.warn(otherChainID);
     if (otherChainID === WORKING_NETWORK_ID) {
       console.log(otherChainID);
       setChainID(otherChainID);

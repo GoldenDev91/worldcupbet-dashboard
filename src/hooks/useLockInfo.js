@@ -39,6 +39,7 @@ export function LockInfoProvider({ children }) {
   const { chainID } = useWeb3Context();
 
   async function fetchLockData() {
+    const chainID = WORKING_NETWORK_ID;
     try {
       let calls = [
         {
@@ -216,7 +217,8 @@ export function LockInfoProvider({ children }) {
   }
 
   useEffect(() => {
-    if (chainID !== WORKING_NETWORK_ID) return;
+    console.log(chainID);
+    // if (chainID !== WORKING_NETWORK_ID) return;
     fetchLockData();
     if (lockid) clearInterval(lockid);
     lockid = setInterval(() => {
