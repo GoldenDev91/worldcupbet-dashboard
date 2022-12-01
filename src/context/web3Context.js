@@ -196,6 +196,24 @@ export const Web3ContextProvider = ({ children }) => {
       _initListeners(rawProvider);
       const connectedProvider = new Web3Provider(rawProvider, "any");
 
+      if (
+        !_checkNetwork(
+          await connectedProvider
+            .getNetwork()
+            .then((network) => network.chainId)
+        )
+      ) {
+        console.log("changing");
+        await window.ethereum
+          .request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x" + WORKING_NETWORK_ID.toString(16) }],
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
       const chainId = await connectedProvider
         .getNetwork()
         .then((network) => network.chainId);
